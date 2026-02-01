@@ -150,8 +150,9 @@ const Participants = () => {
 
             <div className="participants-controls">
                 <div className="search-wrapper">
-                    <span className="search-icon">🔍</span>
+                    <label htmlFor="participant-search" className="search-icon">🔍</label>
                     <input
+                        id="participant-search"
                         type="text"
                         placeholder="Search by name..."
                         className="search-input"
@@ -236,8 +237,9 @@ const Participants = () => {
                         </div>
                         <form onSubmit={handleSubmit}>
                             <div className="form-group">
-                                <label>First Name</label>
+                                <label htmlFor="firstname">First Name</label>
                                 <input
+                                    id="firstname"
                                     type="text"
                                     required
                                     value={currentParticipant.firstname}
@@ -246,8 +248,9 @@ const Participants = () => {
                                 />
                             </div>
                             <div className="form-group">
-                                <label>Last Name</label>
+                                <label htmlFor="lastname">Last Name</label>
                                 <input
+                                    id="lastname"
                                     type="text"
                                     required
                                     value={currentParticipant.lastname}
