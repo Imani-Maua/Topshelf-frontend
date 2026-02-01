@@ -220,16 +220,16 @@ const Forecasts = () => {
                                         </div>
                                     </div>
                                     <div className="month-actions">
-                                        <button className="btn-edit" onClick={() => openModal(monthNum, forecast)}>
+                                        <button className="btn-edit" title={`Edit ${monthName} Forecast`} onClick={() => openModal(monthNum, forecast)}>
                                             Edit
                                         </button>
-                                        <button className="btn-delete" onClick={() => handleDelete(forecast.id, monthNum, selectedYear)}>
+                                        <button className="btn-delete" title={`Delete ${monthName} Forecast`} onClick={() => handleDelete(forecast.id, monthNum, selectedYear)}>
                                             Delete
                                         </button>
                                     </div>
                                 </>
                             ) : (
-                                <button className="btn-add-forecast" onClick={() => openModal(monthNum)}>
+                                <button className="btn-add-forecast" title={`Add ${monthName} Forecast`} onClick={() => openModal(monthNum)}>
                                     <span>➕</span>
                                     Add Forecast
                                 </button>
@@ -260,10 +260,11 @@ const Forecasts = () => {
 
                         <form onSubmit={handleSubmit}>
                             <div className="form-group">
-                                <label>Target Revenue Amount</label>
+                                <label htmlFor="targetAmount">Target Revenue Amount</label>
                                 <div className="price-input-wrapper">
                                     <span className="price-prefix">Ft</span>
                                     <input
+                                        id="targetAmount"
                                         type="number"
                                         className="price-input"
                                         required
