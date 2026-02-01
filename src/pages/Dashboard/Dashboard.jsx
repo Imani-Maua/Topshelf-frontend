@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import MetricCard from '../../components/MetricCard';
+import CSVImportModal from '../../components/CSVImportModal/CSVImportModal';
 import MonthYearPicker from '../../components/MonthYearPicker/MonthYearPicker';
 import { dashboardService } from '../../services/dashboardService';
 import {
@@ -26,6 +27,7 @@ function Dashboard() {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showCSVModal, setShowCSVModal] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,8 +56,22 @@ function Dashboard() {
   };
 
   const handleAddParticipant = () => {
-    navigate('/participants', {state: {openModal: true}});
-  }
+    navigate('/participants', { state: { openModal: true } });
+  };
+
+  const handleCalculateBonuses = () => {
+    navigate('/bonuses', {
+      state: {
+        month: selectedDate.month,
+        year: selectedDate.year
+      }
+    });
+  };
+
+  const handleCSVImport = () => {
+    setShowCSVModal(true);
+  };
+
   if (authLoading || (isLoading && !data)) {
     return <div className="dashboard-loading">Loading Dashboard Intelligence...</div>;
   }
@@ -165,24 +181,50 @@ function Dashboard() {
       </div>
 
       <div className='dashboard-intelligence-grid'>
-        {/* Urgency/Alerts Feed */}
+        {/* Quick Insights */}
         <div className='intelligence-card alerts-feed'>
-          <h3>System Alerts</h3>
+          <h3>💡 Quick Insights</h3>
           <div className='feed-content'>
-            <div className='alert-item warning'>
-              <span className='alert-icon'>⚠️</span>
-              <div className='alert-info'>
-                <p className='alert-title'>Threshold Near</p>
-                <p className='alert-desc'>3 participants are {'<'} 5% from Tier 1 bonus.</p>
+            {/* Top Category */}
+            {data?.salesData && data.salesData.length > 0 && (
+              <div className='alert-item info'>
+                <span className='alert-icon'>🏆</span>
+                <div className='alert-info'>
+                  <p className='alert-title'>Top Category: {data.salesData[0].name}</p>
+                  <p className='alert-desc'>${data.salesData[0].value.toLocaleString()} in sales</p>
+                </div>
               </div>
-            </div>
-            <div className='alert-item info'>
-              <span className='alert-icon'>📅</span>
-              <div className='alert-info'>
-                <p className='alert-title'>Payout Window</p>
-                <p className='alert-desc'>Bonus calculations for Jan close in 48h.</p>
+            )}
+
+            {/* Momentum Status */}
+            {data?.revenue && data.revenue.target > 0 && (
+              <div className={`alert-item ${data.revenue.percentage >= 100 ? 'success' : 'warning'}`}>
+                <span className='alert-icon'>{data.revenue.percentage >= 100 ? '🔥' : '📈'}</span>
+                <div className='alert-info'>
+                  <p className='alert-title'>
+                    Momentum: {data.revenue.percentage.toFixed(0)}% of forecast
+                  </p>
+                  <p className='alert-desc'>
+                    {data.revenue.percentage >= 100
+                      ? "You're crushing it!"
+                      : `$${(data.revenue.target - data.revenue.current).toLocaleString()} to go!`}
+                  </p>
+                </div>
               </div>
-            </div>
+            )}
+
+            {/* Bonus Pool */}
+            {data?.topPerformers && (
+              <div className='alert-item info'>
+                <span className='alert-icon'>💰</span>
+                <div className='alert-info'>
+                  <p className='alert-title'>Bonus Pool: {data.metrics.estimatedPayout}</p>
+                  <p className='alert-desc'>
+                    {data.topPerformers.filter(p => p.amount > 0).length}/{data.metrics.totalParticipants} participants earning
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -218,16 +260,21 @@ function Dashboard() {
             <span className='icon'>➕</span>
             Create New Participant
           </button>
-          <button className='action-btn secondary'>
+          <button className='action-btn secondary' onClick={handleCalculateBonuses}>
             <span className='icon'>🧮</span>
             Calculate Monthly Bonuses
           </button>
-          <button className='action-btn outline'>
+          <button className='action-btn outline' onClick={handleCSVImport}>
             <span className='icon'>📥</span>
             Import Sales Data (CSV)
           </button>
         </div>
       </div>
+
+      <CSVImportModal
+        isOpen={showCSVModal}
+        onClose={() => setShowCSVModal(false)}
+      />
     </div>
   );
 }

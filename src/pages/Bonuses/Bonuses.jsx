@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { bonusService } from '../../services/bonusService';
 import { forecastService } from '../../services/forecastService';
 import CSVImportModal from '../../components/CSVImportModal/CSVImportModal';
@@ -20,10 +21,11 @@ const MONTHS = [
 ];
 
 const Bonuses = () => {
+    const location = useLocation();
     const [mode, setMode] = useState('input'); // 'input' or 'results'
     const [viewMode, setViewMode] = useState('breakdown'); // 'breakdown' or 'leaderboard'
-    const [month, setMonth] = useState(new Date().getMonth() + 1);
-    const [year, setYear] = useState(new Date().getFullYear());
+    const [month, setMonth] = useState(location.state?.month || new Date().getMonth() + 1);
+    const [year, setYear] = useState(location.state?.year ||new Date().getFullYear());
     const [totalRevenue, setTotalRevenue] = useState('');
     const [forecast, setForecast] = useState(null);
     const [loadingForecast, setLoadingForecast] = useState(false);

@@ -322,13 +322,13 @@
 }
 
 .action-btn.outline {
-    background: transparent;
-    border-color: #DDD;
+    background: #eddfdf;
+    border-color: #e2b7b7;
     color: #666;
 }
 
 .action-btn.outline:hover {
-    background: #f8f9fa;
+    background: #f7cdcd;
     border-color: #CCC;
     color: #333;
 }
