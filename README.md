@@ -1,352 +1,366 @@
-# TopShelf - Frontend
+# TopShelf: Upsell Bonus Calculation System - Frontend
 
-**Modern React application for restaurant bonus calculations and sales performance tracking.**
+Modern, responsive React application for managing restaurant bonus calculations with complete transparency and real-time business intelligence.
 
-![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)
-![React](https://img.shields.io/badge/react-18.2.0-61dafb.svg)
-![Vite](https://img.shields.io/badge/vite-5.0.8-646cff.svg)
+## 💡 Why TopShelf Frontend?
 
----
+### The Problem: Manual Chaos
 
-## 🎯 Overview
+Before TopShelf, bonus calculations relied on **slow, manual spreadsheet processes** that caused:
 
-TopShelf Frontend is a responsive, feature-rich React application that provides an intuitive interface for managing restaurant bonus calculations. It replaces slow, error-prone Excel + Macros processes with a modern, transparent system that enables same-month payouts.
+- **⏱️ 2-Month Delays**: Participants who met their threshold requirements in **January** had to wait until **March** to receive their payouts—a **60+ day delay** that hurt morale and retention.
+- **❌ Error-Prone**: Manual data entry and formula errors led to incorrect calculations.
+- **🔒 Opaque**: No visibility into how bonuses were calculated or why thresholds weren't met.
+- **📊 No Insights**: Unable to track performance patterns or provide actionable feedback.
 
-### Key Benefits
-- ⚡ **Fast**: Same-month payouts (vs 2-month delay with Excel)
-- ✅ **Accurate**: Eliminates manual calculation errors
-- 📊 **Transparent**: Complete visibility into bonus calculations
-- 🎨 **Beautiful**: Modern, premium UI with smooth animations
+### The Solution: Real-Time Transparency
 
----
+TopShelf frontend **eliminates the 2-month processing delay** by providing instant, automated bonus calculations:
 
-## ✨ Features
+> **Before**: Meet threshold in January → Get paid in March (**60+ days**)  
+> **After**: Meet threshold in January → Get paid in January (**same month**)
 
-### 📋 **Participant Management**
-- Add, edit, delete sales participants
-- View participant sales history
-- Track bonus earnings per participant
+#### Key Benefits:
 
-### 🏷️ **Category & Product Management**
-- Organize products into bonus-eligible categories
-- Configure calculation modes (PER_ITEM or PER_CATEGORY)
-- Manage product catalog with pricing
+- **⚡ Instant Processing**: Same-day bonus calculations with live results and visual feedback.
+- **🎯 Zero Calculation Errors**: Automated validation eliminates manual mistakes.
+- **🔍 Complete Audit Trail**: Detailed breakdowns show exactly how each bonus was calculated, with category-level performance insights.
+- **📈 Business Intelligence**: Real-time dashboards, performance charts, and actionable analytics.
+- **💰 Employee Trust**: Full transparency builds confidence in the bonus system.
 
-### 📊 **Tier Rules Configuration**
-- Define bonus tiers with minimum quantity thresholds
-- Set bonus percentages per tier
-- Automatic validation of tier rules
+## 🚀 Features
 
-### 🎯 **Forecast Management**
-- Set monthly revenue targets
-- Define threshold percentages
-- Visual forecast status indicators
+- **Real-Time Dashboard**: Live metrics, revenue tracking, performance visualization, top performers leaderboard.
+- **CSV Receipt Import**: Drag-and-drop uploads with month filtering, validation, and error reporting.
+- **Bonus Calculator**: Automated calculations with detailed category breakdowns and forecast comparisons.
+- **Participant Management**: Full CRUD operations with search, bulk import, and detailed profiles.
+- **Category & Product Catalog**: Organize inventory with bonus-eligible flags, tier rules, and bonus modes.
+- **Forecast Planning**: Set monthly revenue targets with threshold configuration and visual progress indicators.
+- **Business Intelligence**: Interactive charts (bar, pie), performance leaderboards, category analytics.
+- **Comprehensive Testing**: 76 automated tests (unit + integration) ensuring reliability.
 
-### 📤 **CSV Receipt Import**
-- Upload sales receipts via drag-and-drop or file picker
-- Optional month/year filtering during import
-- Real-time validation and error reporting
-- Month breakdown of imported data
+## 🛠 Tech Stack
 
-### 💰 **Bonus Calculations**
-- Calculate monthly bonuses based on sales performance
-- Revenue breakdown (total vs bonus-eligible)
-- Data completeness tracking with missing days alerts
-- Detailed participant and category breakdowns
+- **Framework**: [React](https://react.dev/) 18.2.0
+- **Build Tool**: [Vite](https://vitejs.dev/) 5.0.8
+- **Routing**: [React Router](https://reactrouter.com/) 6.x
+- **HTTP Client**: [Axios](https://axios-http.com/)
+- **Charts**: [Recharts](https://recharts.org/)
+- **Testing**: [Vitest](https://vitest.dev/) + [React Testing Library](https://testing-library.com/react)
+- **Styling**: Vanilla CSS with modern design patterns
 
-### 📈 **Business Intelligence**
-- Visual progress bars (revenue vs target)
-- Participant leaderboard with rankings
-- Category performance charts
-- Summary statistics and insights
+## 📁 Project Structure
 
-### 📄 **Receipts Viewing**
-- View all imported receipt data
-- Filter by month, year, participant
-- Pagination support
-- READ-ONLY data integrity
+```text
+├── src/
+│   ├── components/             # Reusable UI components
+│   │   ├── Sidebar.jsx         # Navigation sidebar with routing
+│   │   ├── MetricCard.jsx      # Dashboard metric display cards
+│   │   ├── CSVImportModal/     # CSV file upload modal
+│   │   ├── MonthYearPicker/    # Date selection dropdown
+│   │   └── ParticipantDetail/  # Participant detail modal
+│   ├── pages/                  # Route-level page components
+│   │   ├── Dashboard/          # Command center with BI
+│   │   ├── Participants/       # Participant CRUD interface
+│   │   ├── Categories/         # Category & tier rule management
+│   │   ├── Products/           # Product catalog with filtering
+│   │   ├── Forecasts/          # Monthly revenue target planning
+│   │   ├── Bonuses/            # Bonus calculation engine
+│   │   └── Receipts/           # Receipt history (read-only)
+│   ├── services/               # API communication layer
+│   │   ├── dashboardService.js # Multi-endpoint data aggregation
+│   │   ├── participantService.js
+│   │   ├── categoryService.js
+│   │   ├── productService.js
+│   │   ├── forecastService.js
+│   │   ├── bonusService.js
+│   │   └── receiptService.js
+│   ├── tests/                  # Automated test suites
+│   │   ├── unit/services/      # Service layer unit tests
+│   │   └── integration/        # Component & page integration tests
+│   ├── context/                # React Context providers
+│   │   └── AuthContext.jsx     # Authentication context
+│   ├── App.jsx                 # Main app with routing
+│   └── main.jsx                # Application entry point
+├── data/                       # Sample CSV files for testing
+├── .gitignore                  # Git ignore rules
+├── vite.config.js              # Vite build configuration
+└── package.json                # Dependencies and scripts
+```
 
----
-
-## 🚀 Getting Started
+## 🛠 Getting Started
 
 ### Prerequisites
-- Node.js 18+ and npm
-- Backend API running on `http://localhost:3000`
 
-### Installation
+- **Node.js** v18+ - [Download Node](https://nodejs.org/)
+- **TopShelf Backend** running on `http://localhost:3000` - [Backend Repository](../TopShelf-backend)
 
+### 🔑 Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+VITE_API_URL=http://localhost:3000/api
+```
+
+---
+
+## 💻 Local Development
+
+### 1. Clone the repository
 ```bash
-# Clone the repository
 git clone <repository-url>
 cd TopShelf-frontend
+```
 
-# Install dependencies
+### 2. Install dependencies
+```bash
 npm install
+```
 
-# Start development server
+### 3. Start development server
+```bash
 npm run dev
 ```
 
-The application will be available at `http://localhost:5173`
+The app will be available at `http://localhost:5173`
 
-### Build for Production
-
+### 4. Build for production
 ```bash
-# Create optimized production build
 npm run build
+```
 
-# Preview production build
+### 5. Preview production build
+```bash
 npm run preview
 ```
 
 ---
 
-## 📁 Project Structure
+## 🧪 Testing
 
+The project maintains high quality via 76 automated tests covering all services, components, and pages.
+
+### Run all tests
+```bash
+npm test
 ```
-src/
-├── components/          # Reusable UI components
-│   ├── Sidebar.jsx     # Navigation sidebar
-│   └── CSVImportModal/ # CSV import modal component
-├── pages/              # Page components
-│   ├── Dashboard/      # Dashboard with summary cards
-│   ├── Participants/   # Participant management
-│   ├── Categories/     # Category management
-│   ├── Products/       # Product management
-│   ├── Forecasts/      # Forecast management
-│   ├── Bonuses/        # Bonus calculations
-│   └── Receipts/       # Receipt viewing
-├── services/           # API service layer
-│   ├── api.js         # Base API configuration
-│   ├── participantService.js
-│   ├── categoryService.js
-│   ├── productService.js
-│   ├── forecastService.js
-│   ├── bonusService.js
-│   └── receiptService.js
-├── App.jsx            # Main app component with routing
-├── App.css            # Global styles
-└── main.jsx           # Application entry point
+
+### Run tests with UI
+```bash
+npm run test:ui
 ```
+
+### Run tests with coverage
+```bash
+npm test -- --coverage
+```
+
+### Test Coverage
+
+| Category | Files | Tests | Status |
+|----------|-------|-------|--------|
+| **Service Unit Tests** | 7 | 35 | ✅ 100% |
+| **Component Integration Tests** | 4 | 28 | ✅ 100% |
+| **Page Integration Tests** | 7 | 13 | ✅ 100% |
+| **TOTAL** | **18** | **76** | ✅ **100%** |
+
+**Latest Test Results**: 76/76 passing ✅
 
 ---
 
-## 🎨 Design System
+## 📡 API Integration
 
-### Color Palette
-- **Primary**: `#4A90E2` (Blue)
-- **Success**: `#4CAF50` (Green)
-- **Warning**: `#FFA940` (Orange)
-- **Danger**: `#F44336` (Red)
-- **Background**: `#F5F7FA` (Light Gray)
-
-### Typography
-- **Font Family**: 'Inter', -apple-system, system-ui, sans-serif
-- **Headings**: 700 weight
-- **Body**: 400 weight
-
-### Components
-- **Cards**: White background, subtle shadow, 12px border radius
-- **Buttons**: Rounded, hover effects, disabled states
-- **Inputs**: Bordered, focus states, validation feedback
-- **Modals**: Overlay with centered content, smooth animations
-
----
-
-## 🔌 API Integration
-
-The frontend communicates with the backend API via RESTful endpoints:
+The frontend communicates with the TopShelf backend via RESTful API endpoints.
 
 ### Base URL
 ```javascript
 const API_URL = 'http://localhost:3000/api';
 ```
 
-### Services
-- **Participants**: `/participants`
-- **Categories**: `/categories`
-- **Products**: `/products`
-- **Forecasts**: `/forecasts`
-- **Bonuses**: `/bonuses/calculate`, `/bonuses/upload-receipts`
-- **Receipts**: `/receipts`
+### Key Endpoints
 
-### Example API Call
+| Resource | Methods | Description |
+| :--- | :--- | :--- |
+| `/participants` | GET, POST, PUT, DELETE | Manage sellers/staff |
+| `/categories` | GET, POST, PUT, DELETE | Product groups & bonus modes |
+| `/products` | GET, POST, PUT, DELETE | Individual item management |
+| `/forecasts` | GET, POST, PUT, DELETE | Monthly targets & thresholds |
+| `/bonuses/calculate` | POST | Trigger bonus calculation |
+| `/bonuses/upload-receipts` | POST | Import CSV receipts with filtering |
+| `/receipts` | GET | View historical sales (read-only) |
+
+### Example Service Usage
 ```javascript
 import { participantService } from './services/participantService';
 
 // Get all participants
-const participants = await participantService.getAll();
+const participants = await participantService.getParticipants();
 
 // Create new participant
-const newParticipant = await participantService.create({
+const result = await participantService.createParticipant({
   firstname: 'John',
-  lastname: 'Doe'
+  lastname: 'Doe',
+  employeeId: 'E001'
 });
 ```
 
 ---
 
-## 📊 Key Pages
+## 🎯 User Workflows
 
-### Dashboard
-- Summary cards (participants, categories, forecasts)
-- Quick stats and insights
-- Navigation to all features
+### Calculate Monthly Bonuses (End-to-End)
 
-### Bonuses
-- Month/year selection
-- Total revenue input
-- Forecast validation
-- Revenue breakdown display
-- Data completeness warnings
-- Bonus calculation results
-- Participant leaderboard
-- Category performance charts
-
-### Receipts
-- Filter by month, year, participant
-- Pagination (10/25/50/100 per page)
-- READ-ONLY data view
-- Import status tracking
-
----
-
-## 🎯 User Flows
-
-### Calculate Monthly Bonuses
-
-1. Navigate to **Bonuses** page
-2. Select month and year
-3. (Optional) Import receipts via CSV
-4. Enter total restaurant revenue
-5. Review forecast status
-6. Click **Calculate Bonuses**
-7. Review results:
-   - Revenue breakdown
-   - Data completeness
-   - Participant payouts
-   - Category performance
+1. **Navigate** to **Bonuses** page
+2. **Select** target month and year using date picker
+3. **Import Receipts** (if not already done):
+   - Click "Import Receipts" button
+   - Upload CSV file (`seller,item,quantity,price,date` format)
+   - Optional: Filter by specific month/year
+   - Review import results
+4. **Enter Total Revenue** from restaurant POS system
+5. **Review Forecast Status**:
+   - Green: Threshold met (bonuses will be paid)
+   - Yellow/Red: Below threshold (potential bonuses only)
+6. **Click "Calculate Bonuses"**
+7. **Review Results**:
+   - Revenue breakdown (total vs bonus-eligible)
+   - Participant rankings and payout amounts
+   - Category-level performance details
+   - Individual breakdowns (expandable per participant)
 
 ### Import Receipt Data
 
-1. Click **Import Receipts** button
-2. Select CSV file (max 10MB)
-3. (Optional) Filter by specific month/year
-4. Click **Upload & Process**
-5. Review import results:
+1. Click **"Import Receipts"** button (Dashboard or Bonuses page)
+2. Select CSV file (max 10MB, format: `seller,item,quantity,price,date`)
+3. **(Optional)** Enable "Filter by Month" and select target period
+4. Click **"Upload & Process"**
+5. Review results:
    - Successfully imported count
-   - Month breakdown
-   - Error details (if any)
+   - Month-wise breakdown
+   - Validation errors (if any: missing seller, invalid product, etc.)
 
 ---
 
-## 🛠️ Development
+## 🔍 Debugging & Troubleshooting
 
-### Available Scripts
+### Browser DevTools - Network Tab
 
-```bash
-# Start dev server with hot reload
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-
-# Lint code
-npm run lint
-```
-
-### Code Style
-- Use functional components with hooks
-- Follow React best practices
-- Keep components focused and reusable
-- Use meaningful variable names
-- Add comments for complex logic
-
-### State Management
-- Local state with `useState` for component-specific data
-- Props for parent-child communication
-- Service layer for API calls and data fetching
-
----
-
-## 🐛 Troubleshooting
+1. Open DevTools (F12 or Cmd+Opt+I)
+2. Navigate to **Network** tab
+3. Trigger an action (e.g., load Dashboard, calculate bonuses)
+4. Inspect API requests:
+   - **Status**: Should be `200 OK`
+   - **Headers**: Check `Content-Type`, CORS headers
+   - **Payload**: Verify request body for POST/PUT
+   - **Response**: Confirm data structure matches expected format
+   - **Timing**: Should complete quickly (<1s for most endpoints)
 
 ### Common Issues
 
-**Issue**: API calls failing with CORS errors  
-**Solution**: Ensure backend is running and CORS is configured
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| CORS errors | Backend not allowing frontend origin | Update backend CORS configuration |
+| "Loading..." stuck | Backend not running | Start backend: `npm start` in backend directory |
+| Empty Dashboard | No data in database | Seed database or import CSV data |
+| CSV import fails | Wrong file format | Check CSV format: `seller,item,quantity,price,date` |
+| Bonus calculation error | Missing forecast for period | Create forecast in Forecasts page |
+| "Participant not found" | CSV has names not in DB | Import participants first |
+| Charts show no data | No receipts for selected month | Import receipts via CSV |
 
-**Issue**: CSV import not working  
-**Solution**: Check file format (seller, item, quantity, price, date)
+### Console Logging
 
-**Issue**: Bonus calculation showing empty page  
-**Solution**: Verify forecast exists for selected month/year
+The frontend includes debug logs for troubleshooting:
+```javascript
+console.log("Dashboard Debug - Raw Data:", { forecast, revenue, participantsCount });
+console.log("Dashboard Debug - Bonus Data:", bonusData);
+```
 
-**Issue**: Data completeness warning showing  
-**Solution**: Import receipts for missing days or proceed with calculation
+Check browser console (F12 → Console tab) for these logs to understand data flow.
 
 ---
 
-## 🚀 Deployment
+## 🐳 Deployment
 
-### Environment Variables
-Create a `.env` file:
-```
-VITE_API_URL=http://localhost:3000/api
+### Environment Variables for Production
+
+```env
+VITE_API_URL=https://api.yourproduction.com/api
 ```
 
-### Production Build
+### Build for Production
+
 ```bash
 npm run build
 ```
 
-The optimized files will be in the `dist/` directory.
+Output files will be in `dist/` directory.
+
+### Docker Support (Coming Soon)
+
+Containerize the frontend for consistent deployment:
+```bash
+docker build -t topshelf-frontend .
+docker run -p 5173:5173 topshelf-frontend
+```
 
 ### Hosting Options
-- **Vercel**: Automatic deployments from Git
-- **Netlify**: Drag-and-drop or Git integration
-- **AWS S3 + CloudFront**: Static hosting with CDN
-- **Docker**: Containerized deployment
+
+- **Vercel**: Connect GitHub repo for automatic deployments
+- **Netlify**: Drag-and-drop `dist/` folder or connect Git
+- **AWS S3 + CloudFront**: Static hosting with global CDN
+- **Docker**: Containerized deployment with Nginx
 
 ---
 
-## 📝 Version History
+## 🏗 Architecture Highlights
 
-### V0.1.0 (February 1, 2026)
-- ✅ Initial production release
-- ✅ All core features implemented
-- ✅ Revenue tracking and data completeness
-- ✅ CSV import with filtering
-- ✅ Bonus calculations with BI features
-- ✅ Responsive design
-- ✅ Modern UI with animations
+### Service Layer Pattern
+All API communication is abstracted into service modules (`services/`), separating concerns:
+- **Components**: Focus on UI and user interaction
+- **Services**: Handle HTTP requests, data transformation, error handling
+- **Pages**: Orchestrate components and services
+
+### State Management
+- **React useState**: Local component state
+- **useEffect**: Side effects (data fetching, subscriptions)
+- **Context API**: Shared state (authentication, theme)
+- **No Redux**: Keeping it simple with built-in React features
+
+### Performance Optimizations
+- **Parallel API Calls**: `Promise.all()` for independent requests
+- **Conditional Rendering**: Only fetch/render data when needed
+- **Memoization**: `useMemo` for expensive calculations
+- **Code Splitting**: Lazy loading for routes (future enhancement)
 
 ---
 
 ## 🤝 Contributing
 
-This is a private project. For questions or suggestions, contact the development team.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Run tests (`npm test`)
+5. Commit your changes (`git commit -m 'Add amazing feature'`)
+6. Push to the branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
 
 ---
 
-## 📄 License
+## 📝 License
 
-Proprietary - All rights reserved
-
----
-
-## 🙏 Acknowledgments
-
-Built with ❤️ using:
-- [React](https://react.dev/) - UI framework
-- [Vite](https://vitejs.dev/) - Build tool
-- [Axios](https://axios-http.com/) - HTTP client
-- [React Router](https://reactrouter.com/) - Routing
+ISC
 
 ---
 
+## 📚 Learning Resources
+
+Want to understand how everything works? Check out these educational guides:
+
+- **[CSV Import Flow](../brain/csv_import_explained.md)**: Step-by-step explanation of file upload process, FormData, and backend processing
+- **[Dashboard Architecture](../brain/dashboard_explained.md)**: Deep dive into frontend-backend communication, data aggregation, and React patterns
+
+---
+
+**Developed by Maua Imani**  
 **TopShelf - Transforming bonus calculations from chaos to clarity!** 🎯📊💰
