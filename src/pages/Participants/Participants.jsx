@@ -32,8 +32,8 @@ const Participants = () => {
     const loadParticipants = async () => {
         try {
             setLoading(true);
-            const participants = await participantService.getParticipants();
-            setParticipants(participants.data || []);
+            const response = await participantService.getParticipants();
+            setParticipants(response.data || []);
         } catch (err) {
             setError('Failed to load participants. Please try again.');
         } finally {
@@ -133,7 +133,7 @@ const Participants = () => {
                     <h2>Participants</h2>
                     <p>Manage your restaurant's high-performers.</p>
                 </div>
-               
+
             </div>
 
             {/* Metrics Row */}
@@ -148,18 +148,18 @@ const Participants = () => {
                 </div>
             </div>
 
-             <div className="participants-controls">
-                    <div className="search-wrapper">
-                        <span className="search-icon">🔍</span>
-                        <input
-                            type="text"
-                            placeholder="Search by name..."
-                            className="search-input"
-                            value={searchQuery}
-                            onChange={handleSearch}
-                        />
-                    </div>
-                    <div className='participants-add'>
+            <div className="participants-controls">
+                <div className="search-wrapper">
+                    <span className="search-icon">🔍</span>
+                    <input
+                        type="text"
+                        placeholder="Search by name..."
+                        className="search-input"
+                        value={searchQuery}
+                        onChange={handleSearch}
+                    />
+                </div>
+                <div className='participants-add'>
                     <label className="btn-import" style={{ cursor: importing ? 'wait' : 'pointer', opacity: importing ? 0.6 : 1 }}>
                         <span>📥</span> {importing ? 'Importing...' : 'Import CSV'}
                         <input
@@ -174,7 +174,7 @@ const Participants = () => {
                         <span>➕</span> Add Participant
                     </button>
                 </div>
-                </div>
+            </div>
 
             {/* Table Area */}
             <div className="participants-table-container">

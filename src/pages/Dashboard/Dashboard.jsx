@@ -100,7 +100,7 @@ function Dashboard() {
       <div className='company-goal-section'>
         <div className='goal-header'>
           <span>Monthly Revenue Target</span>
-          <span>({data?.revenue.percentage.toFixed(0)}%)</span>
+          <span>({data?.revenue?.percentage?.toFixed(0) || 0}%)</span>
         </div>
         <div className='progress-bar-container'>
           <div className='progress-bar' style={{ width: `${data?.revenue.percentage}%` }}>
@@ -168,7 +168,7 @@ function Dashboard() {
                   paddingAngle={5}
                   dataKey="value"
                 >
-                  {data?.salesData.map((entry, index) => (
+                  {data?.salesData?.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
                   ))}
                 </Pie>
@@ -220,7 +220,7 @@ function Dashboard() {
                 <div className='alert-info'>
                   <p className='alert-title'>Bonus Pool: {data.metrics.estimatedPayout}</p>
                   <p className='alert-desc'>
-                    {data.topPerformers.filter(p => p.amount > 0).length}/{data.metrics.totalParticipants} participants earning
+                    {data.metrics.earningCount}/{data.metrics.totalParticipants} participants earning
                   </p>
                 </div>
               </div>
@@ -236,7 +236,7 @@ function Dashboard() {
               <span>Name</span>
               <span>Bonus</span>
             </div>
-            {data?.topPerformers.length > 0 ? (
+            {data?.topPerformers && data.topPerformers.length > 0 ? (
               data.topPerformers.map((payout, index) => (
                 <div className='table-row' key={index}>
                   <span className='performer-name'>{payout.participant.name}</span>
