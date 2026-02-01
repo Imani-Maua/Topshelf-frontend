@@ -128,7 +128,7 @@ function Dashboard() {
         />
         <MetricCard
           label="Estimated Payout"
-          value={data?.metrics.estimatedPayout || "$0"}
+          value={data?.metrics.estimatedPayout || "Ft 0"}
           icon="💰"
           color="#FBBC05"
         />
@@ -191,7 +191,7 @@ function Dashboard() {
                 <span className='alert-icon'>🏆</span>
                 <div className='alert-info'>
                   <p className='alert-title'>Top Category: {data.salesData[0].name}</p>
-                  <p className='alert-desc'>${data.salesData[0].value.toLocaleString()} in sales</p>
+                  <p className='alert-desc'>Ft {data.salesData[0].value.toLocaleString()} in sales</p>
                 </div>
               </div>
             )}
@@ -207,7 +207,7 @@ function Dashboard() {
                   <p className='alert-desc'>
                     {data.revenue.percentage >= 100
                       ? "You're crushing it!"
-                      : `$${(data.revenue.target - data.revenue.current).toLocaleString()} to go!`}
+                      : `Ft ${(data.revenue.target - data.revenue.current).toLocaleString()} to go!`}
                   </p>
                 </div>
               </div>
@@ -240,7 +240,7 @@ function Dashboard() {
               data.topPerformers.map((payout, index) => (
                 <div className='table-row' key={index}>
                   <span className='performer-name'>{payout.participant.name}</span>
-                  <span className='bonus-plus'>+${payout.amount.toLocaleString()}</span>
+                  <span className='bonus-plus'>+ Ft {payout.amount.toLocaleString()}</span>
                 </div>
               ))
             ) : (

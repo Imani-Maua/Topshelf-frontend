@@ -67,7 +67,7 @@ export const dashboardService = {
                 metrics: {
                     totalParticipants: participantsCount,
                     thresholdReached: forecast ? `${((revenue.totalRevenue / target) * 100).toFixed(0)}%` : "No Forecast",
-                    estimatedPayout: `$${bonusData.payouts.reduce((sum, p) => sum + p.amount, 0).toLocaleString()}`
+                    estimatedPayout: `Ft ${bonusData.payouts.reduce((sum, p) => sum + p.amount, 0).toLocaleString()}`
                 },
                 revenue: {
                     current: revenue.totalRevenue,
