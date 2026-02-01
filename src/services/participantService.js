@@ -66,5 +66,22 @@ export const participantService = {
             console.error('Error deleting participant:', error);
             throw error;
         }
+    },
+
+    /**
+     * Upload CSV file with participants
+     */
+    uploadCSV: async (file) => {
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+            const response = await axios.post(`${API_URL}/upload-csv`, formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error uploading CSV:', error);
+            throw error;
+        }
     }
 };
