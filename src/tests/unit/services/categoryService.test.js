@@ -4,24 +4,105 @@ import { categoryService } from '../../../services/categoryService';
 
 vi.mock('axios');
 
-describe('categoryService unit tests', () => {
+describe('categoryService Unit Tests', () => {
     beforeEach(() => {
         vi.clearAllMocks();
     });
 
-    it('getCategories should return data', async () => {
-        const mockData = { data: [{ id: '1', name: 'Food' }] };
-        axios.get.mockResolvedValue({ data: mockData });
+    describe('getCategories', () => {
+        it('should fetch all categories', async () => {
+            const mockResponse = {
+                data: {
+                    data: [
+                        { id: '1', name: 'Steaks', mode: 'PER_CATEGORY' }
+                    ]
+                }
+            };
 
-        const result = await categoryService.getCategories();
-        expect(result).toEqual(mockData);
+            axios.get.mockResolvedValue(mockResponse);
+
+            const result = await categoryService.getCategories();
+
+            expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/api/categories');
+            expect(result.data).toHaveLength(1);
+            expect(result.data[0].name).toBe('Steaks');
+        });
     });
 
-    it('updateCategory should send PUT request', async () => {
-        const category = { id: '1', name: 'Drinks' };
-        axios.put.mockResolvedValue({ data: { success: true } });
+    describe('createCategory', () => {
+        it('should create a new category with tier rules', async () => {
+            const newCategory = {
+                name: 'Cocktails',
+                mode: 'PER_ITEM',
+                tierRules: [{ minQuantity: 5, bonusPercentage: 10 }]
+            };
 
-        await categoryService.updateCategory(category.id, category);
-        expect(axios.put).toHaveBeenCalledWith(expect.stringContaining('/categories/1'), category);
+            const mockResponse = {
+                data: {
+                    success: true,
+                    data: { id: '2', ...newCategory }
+                }
+            };
+
+            axios.post.mockResolvedValue(mockResponse);
+
+            const result = await categoryService.createCategory(newCategory);
+
+            expect(axios.post).toHaveBeenCalledWith(
+                'http://localhost:3000/api/categories',
+                newCategory
+            );
+            expect(result.data.name).toBe('Cocktails');
+        });
+    });
+
+    describe('updateCategory', () => {
+        it('should update an existing category', async () => {
+            const updates = {
+                name: 'Premium Steaks',
+                mode: 'PER_CATEGORY'
+            };
+
+            const mockResponse = {
+                data: {
+                    success: true,
+                    data: { id: '1', ...updates }
+                }
+            };
+
+            axios.put.mockResolvedValue(mockResponse);
+
+            const result = await categoryService.updateCategory('1', updates);
+
+            expect(axios.put).toHaveBeenCalledWith(
+                'http://localhost:3000/api/categories/1',
+                updates
+            );
+            expect(result.data.name).toBe('Premium Steaks');
+        });
+    });
+
+    describe('deleteCategory', () => {
+        it('should delete a category by ID', async () => {
+            const mockResponse = {
+                data: { success: true }
+            };
+
+            axios.delete.mockResolvedValue(mockResponse);
+
+            const result = await categoryService.deleteCategory('1');
+
+            expect(axios.delete).toHaveBeenCalledWith('http://localhost:3000/api/categories/1');
+            expect(result.success).toBe(true);
+        });
+    });
+
+    describe('error handling', () => {
+        it('should handle network errors', async () => {
+            axios.get.mockRejectedValue(new Error('Network Error'));
+
+            await expect(categoryService.getCategories())
+                .rejects.toThrow('Network Error');
+        });
     });
 });
