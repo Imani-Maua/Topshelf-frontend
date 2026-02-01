@@ -17,6 +17,7 @@ const Products = () => {
     });
     const [isEditing, setIsEditing] = useState(false);
     const [validationErrors, setValidationErrors] = useState([]);
+    const [importing, setImporting] = useState(false);
 
     useEffect(() => {
         loadProducts();
@@ -133,6 +134,28 @@ const Products = () => {
         }
     };
 
+    const handleCSVImport = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        try {
+            setImporting(true);
+            const result = await productService.uploadCSV(file);
+            const msg = `✅ Import successful!\n\nProcessed: ${result.data.processed}\nDuplicates: ${result.data.duplicates}\nErrors: ${result.data.errors}`;
+            const categoryMsg = result.data.newCategories > 0
+                ? `\n\n🆕 Created ${result.data.newCategories} new categories:\n${result.data.newCategoryList.join(', ')}\n\n⚠️ Remember to set tier rules for bonus calculations!`
+                : '';
+            alert(msg + categoryMsg);
+            loadProducts();
+            loadCategories(); // Reload categories if new ones were created
+            e.target.value = ''; // Reset file input
+        } catch (err) {
+            alert('❌ Import failed: ' + (err.response?.data?.error || err.message));
+        } finally {
+            setImporting(false);
+        }
+    };
+
     // Calculate stats
     const totalProducts = products.length;
     const averagePrice = products.length > 0
@@ -158,7 +181,27 @@ const Products = () => {
                     <h2>Product Inventory</h2>
                     <p>Manage your restaurant's menu items and pricing.</p>
                 </div>
-                <div className="products-controls">
+                
+            </div>
+
+            {/* Stats Row */}
+            <div className="products-stats">
+                <div className="stat-card">
+                    <span className="stat-label">Total Products</span>
+                    <span className="stat-value">{totalProducts}</span>
+                </div>
+                <div className="stat-card">
+                    <span className="stat-label">Average Price</span>
+                    <span className="stat-value">${averagePrice}</span>
+                </div>
+                <div className="stat-card">
+                    <span className="stat-label">Showing</span>
+                    <span className="stat-value">{filteredCount}</span>
+                </div>
+            </div>
+
+            <div className="products-controls">
+                <div className='search-controls'>
                     <div className="search-wrapper">
                         <span className="search-icon">🔍</span>
                         <input
@@ -181,27 +224,23 @@ const Products = () => {
                             </option>
                         ))}
                     </select>
+                    </div>
+                    <div className='import-controls'>
+                    <label className="btn-import" style={{ cursor: importing ? 'wait' : 'pointer', opacity: importing ? 0.6 : 1 }}>
+                        <span>📥</span> {importing ? 'Importing...' : 'Import CSV'}
+                        <input
+                            type="file"
+                            accept=".csv"
+                            onChange={handleCSVImport}
+                            style={{ display: 'none' }}
+                            disabled={importing}
+                        />
+                    </label>
                     <button className="btn-add" onClick={() => openModal()}>
                         <span>➕</span> Add Product
                     </button>
+                    </div>
                 </div>
-            </div>
-
-            {/* Stats Row */}
-            <div className="products-stats">
-                <div className="stat-card">
-                    <span className="stat-label">Total Products</span>
-                    <span className="stat-value">{totalProducts}</span>
-                </div>
-                <div className="stat-card">
-                    <span className="stat-label">Average Price</span>
-                    <span className="stat-value">${averagePrice}</span>
-                </div>
-                <div className="stat-card">
-                    <span className="stat-label">Showing</span>
-                    <span className="stat-value">{filteredCount}</span>
-                </div>
-            </div>
 
             {/* Products Table */}
             <div className="products-table-container">
