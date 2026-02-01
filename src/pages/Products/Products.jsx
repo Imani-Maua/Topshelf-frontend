@@ -181,7 +181,7 @@ const Products = () => {
                     <h2>Product Inventory</h2>
                     <p>Manage your restaurant's menu items and pricing.</p>
                 </div>
-                
+
             </div>
 
             {/* Stats Row */}
@@ -224,8 +224,8 @@ const Products = () => {
                             </option>
                         ))}
                     </select>
-                    </div>
-                    <div className='import-controls'>
+                </div>
+                <div className='import-controls'>
                     <label className="btn-import" style={{ cursor: importing ? 'wait' : 'pointer', opacity: importing ? 0.6 : 1 }}>
                         <span>📥</span> {importing ? 'Importing...' : 'Import CSV'}
                         <input
@@ -239,8 +239,8 @@ const Products = () => {
                     <button className="btn-add" onClick={() => openModal()}>
                         <span>➕</span> Add Product
                     </button>
-                    </div>
                 </div>
+            </div>
 
             {/* Products Table */}
             <div className="products-table-container">

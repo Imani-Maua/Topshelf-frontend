@@ -42,9 +42,20 @@ const Receipts = () => {
 
             // Build filters for API
             const apiFilters = {};
-            if (filters.month && filters.year) {
-                const startDate = new Date(filters.year, filters.month - 1, 1).toISOString();
-                const endDate = new Date(filters.year, filters.month, 0, 23, 59, 59).toISOString();
+            if (filters.month || filters.year) {
+                const year = parseInt(filters.year) || new Date().getFullYear();
+
+                let startDate, endDate;
+                if (filters.month) {
+                    const month = parseInt(filters.month);
+                    startDate = new Date(Date.UTC(year, month - 1, 1)).toISOString();
+                    endDate = new Date(Date.UTC(year, month, 0, 23, 59, 59)).toISOString();
+                } else {
+                    // Year only
+                    startDate = new Date(Date.UTC(year, 0, 1)).toISOString();
+                    endDate = new Date(Date.UTC(year, 11, 31, 23, 59, 59)).toISOString();
+                }
+
                 apiFilters.startDate = startDate;
                 apiFilters.endDate = endDate;
             }
@@ -56,8 +67,8 @@ const Receipts = () => {
             apiFilters.sortOrder = 'desc';
 
             const response = await receiptService.getReceipts(apiFilters);
-            setReceipts(response.data.receipts || []);
-            setTotalReceipts(response.data.total || 0);
+            setReceipts(response.data || []);
+            setTotalReceipts(response.pagination?.total || 0);
         } catch (err) {
             console.error('Error loading receipts:', err);
             setError(err.response?.data?.error || 'Failed to load receipts');
@@ -191,7 +202,7 @@ const Receipts = () => {
                                 </div>
                                 <div className="table-cell">{receipt.product?.name}</div>
                                 <div className="table-cell">{receipt.product?.category?.name}</div>
-                                <div className="table-cell price">${receipt.price.toFixed(2)}</div>
+                                <div className="table-cell price">Ft {receipt.price.toLocaleString()}</div>
                             </div>
                         ))}
                     </div>
