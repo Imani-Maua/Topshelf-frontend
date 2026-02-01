@@ -243,7 +243,7 @@ const Bonuses = () => {
                                 <div className="form-group">
                                     <label>Total Revenue</label>
                                     <div className="revenue-input-wrapper">
-                                        <span className="revenue-prefix">$</span>
+                                        <span className="revenue-prefix">Ft</span>
                                         <input
                                             type="number"
                                             className="revenue-input"
@@ -262,7 +262,7 @@ const Bonuses = () => {
                                         <div className="progress-header">
                                             <span className="progress-label">Revenue Progress</span>
                                             <span className="progress-values">
-                                                ${parseFloat(totalRevenue).toLocaleString()} / ${forecast.targetAmount.toLocaleString()}
+                                                Ft {parseFloat(totalRevenue).toLocaleString()} / Ft {forecast.targetAmount.toLocaleString()}
                                             </span>
                                         </div>
                                         <div className="progress-bar-container">
@@ -303,7 +303,7 @@ const Bonuses = () => {
                                     <div className="forecast-info">
                                         <div className="forecast-row">
                                             <span className="forecast-label">Target Revenue</span>
-                                            <span className="forecast-value">${forecast.targetAmount.toLocaleString()}</span>
+                                            <span className="forecast-value">Ft {forecast.targetAmount.toLocaleString()}</span>
                                         </div>
                                         <div className="forecast-row">
                                             <span className="forecast-label">Threshold</span>
@@ -312,7 +312,7 @@ const Bonuses = () => {
                                         <div className="forecast-row">
                                             <span className="forecast-label">Minimum Required</span>
                                             <span className="forecast-value">
-                                                ${(forecast.targetAmount * forecast.threshold).toLocaleString()}
+                                                Ft {(forecast.targetAmount * forecast.threshold).toLocaleString()}
                                             </span>
                                         </div>
                                     </div>
@@ -339,7 +339,7 @@ const Bonuses = () => {
                             <span className="icon">🎉</span>
                             <div className="message">
                                 <h4>Congratulations! Forecast Met!</h4>
-                                <p>Total bonuses: ${results.payouts.reduce((sum, p) => sum + p.amount, 0).toFixed(2)} to be distributed</p>
+                                <p>Total bonuses: Ft {results.payouts.reduce((sum, p) => sum + p.amount, 0).toFixed(2)} to be distributed</p>
                             </div>
                         </div>
                     )}
@@ -358,12 +358,12 @@ const Bonuses = () => {
                                 {results.forecastMet ? '✅ Met' : '⚠️ Not Met'}
                             </span>
                             <div className="stat-detail">
-                                Target: ${results.revenues.target.toLocaleString()}
+                                Target: Ft {results.revenues.target.toLocaleString()}
                             </div>
                         </div>
                         <div className="summary-card">
                             <span className="summary-label">Total Revenue</span>
-                            <span className="summary-value">${results.revenues.total.toLocaleString()}</span>
+                            <span className="summary-value">Ft {results.revenues.total.toLocaleString()}</span>
                             <div className="stat-detail">
                                 {((results.revenues.total / results.revenues.target) * 100).toFixed(1)}% of target
                             </div>
@@ -371,10 +371,10 @@ const Bonuses = () => {
                         <div className="summary-card">
                             <span className="summary-label">Total Bonuses</span>
                             <span className="summary-value success">
-                                ${results.payouts.reduce((sum, p) => sum + p.amount, 0).toFixed(2)}
+                                Ft {results.payouts.reduce((sum, p) => sum + p.amount, 0).toFixed(2)}
                             </span>
                             <div className="stat-detail">
-                                Avg: ${getAverageBonus().toFixed(2)} per participant
+                                Avg: Ft {getAverageBonus().toFixed(2)} per participant
                             </div>
                         </div>
                         <div className="summary-card">
@@ -403,18 +403,18 @@ const Bonuses = () => {
                             <h3>Revenue Breakdown</h3>
                             <div className="revenue-row">
                                 <span>Total Restaurant Revenue:</span>
-                                <span className="revenue-value">${results.revenues.total?.toLocaleString() || '0'}</span>
+                                <span className="revenue-value">Ft {results.revenues.total?.toLocaleString() || '0'}</span>
                             </div>
                             {results.revenues.bonusEligible !== undefined && (
                                 <>
                                     <div className="revenue-row highlight">
                                         <span>Bonus-Eligible Revenue:</span>
-                                        <span className="revenue-value">${results.revenues.bonusEligible.toLocaleString()}</span>
+                                        <span className="revenue-value">Ft {results.revenues.bonusEligible.toLocaleString()}</span>
                                     </div>
                                     <div className="revenue-row muted">
                                         <span>Non-Eligible Revenue:</span>
                                         <span className="revenue-value">
-                                            ${(results.revenues.total - results.revenues.bonusEligible).toLocaleString()}
+                                            Ft {(results.revenues.total - results.revenues.bonusEligible).toLocaleString()}
                                         </span>
                                     </div>
                                 </>
@@ -467,7 +467,7 @@ const Bonuses = () => {
                                                 {cat.percentage > 20 && `${cat.percentage.toFixed(0)}%`}
                                             </div>
                                         </div>
-                                        <span className="category-bar-value">${cat.bonus.toFixed(2)}</span>
+                                        <span className="category-bar-value">Ft {cat.bonus.toFixed(2)}</span>
                                     </div>
                                 ))}
                             </div>
@@ -507,7 +507,7 @@ const Bonuses = () => {
                                             <span className="participant-name">{payout.participant.name}</span>
                                         </div>
                                         <div className="leaderboard-bonus">
-                                            ${payout.amount.toFixed(2)}
+                                           Ft {payout.amount.toFixed(2)}
                                         </div>
                                         <div className="leaderboard-categories">
                                             {categoryCount} {categoryCount === 1 ? 'category' : 'categories'}
@@ -528,7 +528,7 @@ const Bonuses = () => {
                                         >
                                             <span className="participant-name">{payout.participant.name}</span>
                                             <span className={`participant-bonus ${payout.amount === 0 ? 'zero' : ''}`}>
-                                                ${payout.amount.toFixed(2)}
+                                               Ft {payout.amount.toFixed(2)}
                                             </span>
                                             <span className={`expand-icon ${isExpanded ? 'expanded' : ''}`}>
                                                 ▼
@@ -542,7 +542,7 @@ const Bonuses = () => {
                                                         <div className="category-header">
                                                             <span className="category-name">{categoryBreakdown.category}</span>
                                                             <span className="category-bonus">
-                                                                ${categoryBreakdown.bonus.toFixed(2)}
+                                                                Ft {categoryBreakdown.bonus.toFixed(2)}
                                                             </span>
                                                         </div>
 
@@ -565,7 +565,7 @@ const Bonuses = () => {
                                                                             {item.quantity} items
                                                                         </div>
                                                                         <div className="item-value">
-                                                                            ${item.revenue.toFixed(2)}
+                                                                            Ft {item.revenue.toFixed(2)}
                                                                         </div>
                                                                         <div>
                                                                             {item.tierQualified ? (
@@ -577,7 +577,7 @@ const Bonuses = () => {
                                                                             )}
                                                                         </div>
                                                                         <div className="item-value">
-                                                                            ${item.bonus.toFixed(2)}
+                                                                            Ft {item.bonus.toFixed(2)}
                                                                         </div>
                                                                     </div>
                                                                     {item.reason && (
