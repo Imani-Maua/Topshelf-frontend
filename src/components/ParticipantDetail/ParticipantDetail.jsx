@@ -46,11 +46,11 @@ const ParticipantDetail = ({ participant, onClose }) => {
                         </div>
                         <div className="stat-box">
                             <span className="stat-label">Revenue Generated</span>
-                            <span className="stat-value">${totalRevenue.toLocaleString()}</span>
+                            <span className="stat-value">Ft {totalRevenue.toLocaleString()}</span>
                         </div>
                         <div className="stat-box">
                             <span className="stat-label">Bonuses Earned</span>
-                            <span className="stat-value success">${totalBonuses.toLocaleString()}</span>
+                            <span className="stat-value success">Ft {totalBonuses.toLocaleString()}</span>
                         </div>
                     </div>
 
@@ -65,7 +65,7 @@ const ParticipantDetail = ({ participant, onClose }) => {
                                             <span className="product-name">{product}</span>
                                             <span className="product-count">{data.count} sold</span>
                                         </div>
-                                        <span className="product-revenue">${data.revenue.toLocaleString()}</span>
+                                        <span className="product-revenue">Ft {data.revenue.toLocaleString()}</span>
                                     </div>
                                 ))}
                             </div>
@@ -89,7 +89,7 @@ const ParticipantDetail = ({ participant, onClose }) => {
                                                 })}
                                             </span>
                                         </div>
-                                        <span className="bonus-amount">+${bonus.amount.toLocaleString()}</span>
+                                        <span className="bonus-amount">+ Ft{bonus.amount.toLocaleString()}</span>
                                     </div>
                                 ))}
                             </div>
@@ -111,7 +111,7 @@ const ParticipantDetail = ({ participant, onClose }) => {
                                                 {new Date(receipt.date).toLocaleDateString()}
                                             </span>
                                         </div>
-                                        <span className="sale-price">${receipt.price}</span>
+                                        <span className="sale-price">Ft {receipt.price}</span>
                                     </div>
                                 ))}
                             </div>
