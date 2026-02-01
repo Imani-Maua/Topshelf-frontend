@@ -258,7 +258,7 @@ const Participants = () => {
                             <div className="modal-footer">
                                 <button type="button" className="btn-cancel" onClick={closeModal}>Cancel</button>
                                 <button type="submit" className="btn-save">
-                                    {isEditing ? 'Save Changes' : 'Hire Participant'}
+                                    {isEditing ? 'Save Changes' : 'Add Participant'}
                                 </button>
                             </div>
                         </form>
