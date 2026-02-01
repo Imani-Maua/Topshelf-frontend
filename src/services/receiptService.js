@@ -9,17 +9,27 @@ export const receiptService = {
      */
     getReceipts: async (filters = {}) => {
         try {
-            const params = new URLSearchParams();
-            Object.keys(filters).forEach(key => {
-                if (filters[key] !== null && filters[key] !== undefined && filters[key] !== '') {
-                    params.append(key, filters[key]);
-                }
-            });
-
-            const response = await axios.get(`${API_URL}/receipts?${params.toString()}`);
+            const response = await axios.get(`${API_URL}/receipts`, { params: filters });
             return response.data;
         } catch (error) {
             console.error('Error fetching receipts:', error);
+            throw error;
+        }
+    },
+
+    /**
+     * Get receipts summary for a date range
+     * @param {string} startDate - ISO date string
+     * @param {string} endDate - ISO date string
+     */
+    getReceiptsSummary: async (startDate, endDate) => {
+        try {
+            const response = await axios.get(`${API_URL}/receipts/stats/summary`, {
+                params: { startDate, endDate }
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching receipts summary:', error);
             throw error;
         }
     },
