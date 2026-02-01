@@ -1,51 +1,51 @@
-name,category
-Ribeye Steak 300g,Steaks
-Filet Mignon 250g,Steaks
-T-Bone Steak 400g,Steaks
-Sirloin Steak 350g,Steaks
-Porterhouse Steak 500g,Steaks
-Wagyu Steak 200g,Steaks
-Budapest Sunset,Signature Cocktails
-Danube Dream,Signature Cocktails
-Hungarian Fire,Signature Cocktails
-Tokaji Twist,Signature Cocktails
-Paprika Passion,Signature Cocktails
-Lava Burst Cake,Desserts
-Classic Cheesecake,Desserts
-Tiramisu,Desserts
-Chocolate Mousse,Desserts
-Crème Brûlée,Desserts
-Apple Strudel,Desserts
-Panna Cotta,Desserts
-Egri Bikavér 2020,Wines
-Tokaji Aszú 5 Puttonyos,Wines
-Villányi Cabernet Franc,Wines
-Badacsonyi Olaszrizling,Wines
-Szekszárdi Merlot,Wines
-Somló Furmint,Wines
-Eger Chardonnay,Wines
-Classic Martini,Classic Cocktails
-Mojito,Classic Cocktails
-Old Fashioned,Classic Cocktails
-Negroni,Classic Cocktails
-Margarita,Classic Cocktails
-Margherita Pizza,Pizza
-Quattro Formaggi Pizza,Pizza
-Prosciutto Pizza,Pizza
-Carbonara Pasta,Pasta
-Bolognese Pasta,Pasta
-Pesto Pasta,Pasta
-Bruschetta,Appetizers
-Caesar Salad,Appetizers
-Caprese Salad,Appetizers
-Garlic Bread,Appetizers
-Truffle Fries,Sides
-Grilled Vegetables,Sides
-Mashed Potatoes,Sides
-Coca Cola,Soft Drinks
-Sprite,Soft Drinks
-Mineral Water,Soft Drinks
-Orange Juice,Soft Drinks
-Espresso,Coffee
-Cappuccino,Coffee
-Latte,Coffee
+name,category,price
+Ribeye Steak 300g,Steaks,12960
+Filet Mignon 250g,Steaks,14400
+T-Bone Steak 400g,Steaks,13680
+Sirloin Steak 350g,Steaks,12240
+Porterhouse Steak 500g,Steaks,15840
+Wagyu Steak 200g,Steaks,18720
+Budapest Sunset,Signature Cocktails,4320
+Danube Dream,Signature Cocktails,4608
+Hungarian Fire,Signature Cocktails,5040
+Tokaji Twist,Signature Cocktails,4680
+Paprika Passion,Signature Cocktails,5760
+Lava Burst Cake,Desserts,3600
+Classic Cheesecake,Desserts,2880
+Tiramisu,Desserts,2592
+Chocolate Mousse,Desserts,2592
+Crème Brûlée,Desserts,2880
+Apple Strudel,Desserts,2160
+Panna Cotta,Desserts,2520
+Egri Bikavér 2020,Wines,8640
+Tokaji Aszú 5 Puttonyos,Wines,21600
+Villányi Cabernet Franc,Wines,11520
+Badacsonyi Olaszrizling,Wines,10080
+Szekszárdi Merlot,Wines,12240
+Somló Furmint,Wines,13680
+Eger Chardonnay,Wines,10800
+Classic Martini,Classic Cocktails,3600
+Mojito,Classic Cocktails,3600
+Old Fashioned,Classic Cocktails,3960
+Negroni,Classic Cocktails,3960
+Margarita,Classic Cocktails,3960
+Margherita Pizza,Pizza,5040
+Quattro Formaggi Pizza,Pizza,5400
+Prosciutto Pizza,Pizza,5760
+Carbonara Pasta,Pasta,4320
+Bolognese Pasta,Pasta,4680
+Pesto Pasta,Pasta,4680
+Bruschetta,Appetizers,2880
+Caesar Salad,Appetizers,2880
+Caprese Salad,Appetizers,3240
+Garlic Bread,Appetizers,2160
+Truffle Fries,Sides,2520
+Grilled Vegetables,Sides,2160
+Mashed Potatoes,Sides,1800
+Coca Cola,Soft Drinks,1152
+Sprite,Soft Drinks,1152
+Mineral Water,Soft Drinks,1152
+Orange Juice,Soft Drinks,1440
+Espresso,Coffee,1080
+Cappuccino,Coffee,1440
+Latte,Coffee,1440
