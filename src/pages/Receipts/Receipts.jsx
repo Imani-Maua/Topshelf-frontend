@@ -60,7 +60,11 @@ const Receipts = () => {
                 apiFilters.endDate = endDate;
             }
             if (filters.participantId) apiFilters.participantId = filters.participantId;
+            else apiFilters.participantId = '';
+
             if (filters.productId) apiFilters.productId = filters.productId;
+            else apiFilters.productId = '';
+
             apiFilters.limit = filters.limit;
             apiFilters.offset = filters.offset;
             apiFilters.sortBy = 'date';
@@ -125,8 +129,9 @@ const Receipts = () => {
 
             <div className="filters-section">
                 <div className="filter-group">
-                    <label>Month</label>
+                    <label htmlFor="month-select">Month</label>
                     <select
+                        id="month-select"
                         value={filters.month}
                         onChange={(e) => handleFilterChange('month', e.target.value)}
                     >
@@ -151,8 +156,9 @@ const Receipts = () => {
                 </div>
 
                 <div className="filter-group">
-                    <label>Results per page</label>
+                    <label htmlFor="limit-select">Results per page</label>
                     <select
+                        id="limit-select"
                         value={filters.limit}
                         onChange={(e) => handleFilterChange('limit', parseInt(e.target.value))}
                     >
@@ -161,6 +167,22 @@ const Receipts = () => {
                         <option value="200">200</option>
                         <option value="500">500</option>
                     </select>
+                </div>
+
+                <div className="filter-group">
+                    <button
+                        className="btn-clear"
+                        onClick={() => setFilters({
+                            month: new Date().getMonth() + 1,
+                            year: new Date().getFullYear(),
+                            participantId: '',
+                            productId: '',
+                            limit: 50,
+                            offset: 0
+                        })}
+                    >
+                        Clear All
+                    </button>
                 </div>
             </div>
 
