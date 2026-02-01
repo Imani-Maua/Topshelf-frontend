@@ -168,7 +168,7 @@ const Forecasts = () => {
                 </div>
                 <div className="stat-card">
                     <span className="stat-label">Average Target</span>
-                    <span className="stat-value">${parseInt(averageTarget).toLocaleString()}</span>
+                    <span className="stat-value">Ft {parseInt(averageTarget).toLocaleString()}</span>
                 </div>
                 <div className="stat-card">
                     <span className="stat-label">Months Remaining</span>
@@ -203,7 +203,7 @@ const Forecasts = () => {
                                         <div className="forecast-row">
                                             <span className="forecast-label">Target</span>
                                             <span className="forecast-value target">
-                                                ${forecast.targetAmount.toLocaleString()}
+                                                Ft{forecast.targetAmount.toLocaleString()}
                                             </span>
                                         </div>
                                         <div className="forecast-row">
@@ -215,7 +215,7 @@ const Forecasts = () => {
                                         <div className="forecast-row">
                                             <span className="forecast-label">Trigger At</span>
                                             <span className="forecast-value">
-                                                ${(forecast.targetAmount * forecast.threshold).toLocaleString()}
+                                                Ft{(forecast.targetAmount * forecast.threshold).toLocaleString()}
                                             </span>
                                         </div>
                                     </div>
@@ -262,7 +262,7 @@ const Forecasts = () => {
                             <div className="form-group">
                                 <label>Target Revenue Amount</label>
                                 <div className="price-input-wrapper">
-                                    <span className="price-prefix">$</span>
+                                    <span className="price-prefix">Ft</span>
                                     <input
                                         type="number"
                                         className="price-input"
@@ -281,7 +281,7 @@ const Forecasts = () => {
                                 <div className="threshold-display">
                                     <span className="threshold-percentage">{currentForecast.threshold}%</span>
                                     <span className="threshold-amount">
-                                        Triggers at ${parseFloat(calculateTriggerAmount()).toLocaleString()}
+                                        Triggers at Ft {parseFloat(calculateTriggerAmount()).toLocaleString()}
                                     </span>
                                 </div>
                                 <input
