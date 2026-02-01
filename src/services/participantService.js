@@ -9,7 +9,7 @@ export const participantService = {
     getParticipants: async () => {
         try {
             const response = await axios.get(API_URL);
-            return response.data; // Expected { success: true, data: [], count: 0 }
+            return response.data;
         } catch (error) {
             console.error('Error fetching participants:', error);
             throw error;

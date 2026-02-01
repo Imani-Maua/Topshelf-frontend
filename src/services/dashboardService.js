@@ -10,8 +10,8 @@ export const dashboardService = {
      */
     getDashboardData: async (month, year) => {
         try {
-            const startDate = new Date(year, month - 1, 1).toISOString();
-            const endDate = new Date(year, month, 0, 23, 59, 59).toISOString();
+            const startDate = new Date(Date.UTC(year, month - 1, 1)).toISOString();
+            const endDate = new Date(Date.UTC(year, month, 0, 23, 59, 59)).toISOString();
 
             // 1. Fire off requests but handle individual failures
             const [forecastRes, revenueRes, participantsRes] = await Promise.all([
@@ -20,9 +20,15 @@ export const dashboardService = {
                 axios.get(`${API_URL}/participants`).catch(() => ({ data: { count: 0 } }))
             ]);
 
-            const forecast = forecastRes.data.data;
-            const revenue = revenueRes.data.data;
-            const participantsCount = participantsRes.data.count;
+            const forecast = forecastRes.data?.data;
+            const revenue = revenueRes.data?.data || { totalRevenue: 0 };
+            const participantsCount = participantsRes.data?.count ?? participantsRes.data?.data?.length ?? 0;
+
+            console.log("Dashboard Debug - Raw Data:", {
+                forecast,
+                revenue,
+                participantsCount
+            });
 
             // 2. Only calculate bonuses if we have revenue AND a forecast
             let bonusData = { payouts: [] };
@@ -34,8 +40,9 @@ export const dashboardService = {
                         totalRevenue: revenue.totalRevenue
                     });
                     bonusData = bonusRes.data.data;
+                    console.log("Dashboard Debug - Bonus Data:", bonusData);
                 } catch (e) {
-                    console.error("Bonus Calculation failed", e);
+                    console.error("Dashboard Debug - Bonus Calculation failed", e);
                 }
             }
 
@@ -61,13 +68,17 @@ export const dashboardService = {
                 value
             })).sort((a, b) => b.value - a.value);
 
+            // Calculate total earners from full payouts list
+            const earningCount = bonusData.payouts.filter(p => (p.potentialBonus || p.amount) > 0).length;
+
             // 4. Transform data with fallbacks
             const target = forecast?.targetAmount || 1; // Prevent division by zero
             return {
                 metrics: {
                     totalParticipants: participantsCount,
                     thresholdReached: forecast ? `${((revenue.totalRevenue / target) * 100).toFixed(0)}%` : "No Forecast",
-                    estimatedPayout: `Ft ${bonusData.payouts.reduce((sum, p) => sum + p.amount, 0).toLocaleString()}`
+                    earningCount,
+                    estimatedPayout: `Ft ${bonusData.payouts.reduce((sum, p) => sum + (p.potentialBonus || p.amount), 0).toLocaleString()}`
                 },
                 revenue: {
                     current: revenue.totalRevenue,
