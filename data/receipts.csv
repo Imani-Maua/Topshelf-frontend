@@ -1,0 +1,89 @@
+seller,item,quantity,price,date
+Amara Ochieng,Ribeye Steak 300g,2,10800,2026-01-02
+Amara Ochieng,Budapest Sunset,1,3600,2026-01-02
+Chen Wei,Filet Mignon 250g,1,12000,2026-01-02
+Chen Wei,Egri Bikavér 2020,1,7200,2026-01-02
+Yuki Tanaka,T-Bone Steak 400g,1,11400,2026-01-03
+Yuki Tanaka,Danube Dream,2,3840,2026-01-03
+Priya Sharma,Sirloin Steak 350g,3,10200,2026-01-03
+Priya Sharma,Tokaji Aszú 5 Puttonyos,1,18000,2026-01-03
+Sophie Dubois,Porterhouse Steak 500g,1,13200,2026-01-04
+Sophie Dubois,Lava Burst Cake,2,3000,2026-01-04
+Klaus Müller,Wagyu Steak 200g,2,15600,2026-01-04
+Klaus Müller,Hungarian Fire,1,4200,2026-01-04
+Chioma Adeyemi,Ribeye Steak 300g,1,10800,2026-01-05
+Chioma Adeyemi,Villányi Cabernet Franc,1,9600,2026-01-05
+Luca Rossi,Filet Mignon 250g,2,12000,2026-01-05
+Luca Rossi,Classic Cheesecake,1,2400,2026-01-05
+Beatriz Silva,Margherita Pizza,1,4200,2026-01-06
+Beatriz Silva,Coca Cola,2,960,2026-01-06
+Katalin Nagy,Carbonara Pasta,1,3600,2026-01-06
+Katalin Nagy,Tiramisu,1,2160,2026-01-06
+Kwame Mensah,Caesar Salad,1,2400,2026-01-07
+Kwame Mensah,Classic Martini,1,3000,2026-01-07
+Mei Lin,Bruschetta,2,2400,2026-01-07
+Mei Lin,Mojito,1,3000,2026-01-07
+Amara Ochieng,T-Bone Steak 400g,2,11400,2026-01-08
+Amara Ochieng,Tokaji Twist,1,3900,2026-01-08
+Amara Ochieng,Badacsonyi Olaszrizling,1,8400,2026-01-08
+Chen Wei,Sirloin Steak 350g,1,10200,2026-01-09
+Chen Wei,Paprika Passion,2,4800,2026-01-09
+Chen Wei,Szekszárdi Merlot,1,10200,2026-01-09
+Yuki Tanaka,Porterhouse Steak 500g,2,13200,2026-01-10
+Yuki Tanaka,Budapest Sunset,1,3600,2026-01-10
+Yuki Tanaka,Lava Burst Cake,1,3000,2026-01-10
+Priya Sharma,Wagyu Steak 200g,1,15600,2026-01-11
+Priya Sharma,Danube Dream,1,3840,2026-01-11
+Priya Sharma,Somló Furmint,1,11400,2026-01-11
+Sophie Dubois,Ribeye Steak 300g,3,10800,2026-01-12
+Sophie Dubois,Hungarian Fire,2,4200,2026-01-12
+Sophie Dubois,Classic Cheesecake,2,2400,2026-01-12
+Klaus Müller,Filet Mignon 250g,1,12000,2026-01-13
+Klaus Müller,Tokaji Twist,1,3900,2026-01-13
+Klaus Müller,Eger Chardonnay,1,9000,2026-01-13
+Chioma Adeyemi,T-Bone Steak 400g,2,11400,2026-01-14
+Chioma Adeyemi,Paprika Passion,1,4800,2026-01-14
+Chioma Adeyemi,Egri Bikavér 2020,1,7200,2026-01-14
+Luca Rossi,Sirloin Steak 350g,2,10200,2026-01-15
+Luca Rossi,Budapest Sunset,1,3600,2026-01-15
+Luca Rossi,Lava Burst Cake,1,3000,2026-01-15
+Beatriz Silva,Quattro Formaggi Pizza,1,4500,2026-01-16
+Beatriz Silva,Sprite,1,960,2026-01-16
+Katalin Nagy,Bolognese Pasta,1,3900,2026-01-17
+Katalin Nagy,Chocolate Mousse,1,2160,2026-01-17
+Kwame Mensah,Caprese Salad,1,2700,2026-01-18
+Kwame Mensah,Old Fashioned,1,3300,2026-01-18
+Mei Lin,Garlic Bread,1,1800,2026-01-19
+Mei Lin,Negroni,1,3300,2026-01-19
+Amara Ochieng,Porterhouse Steak 500g,1,13200,2026-01-20
+Amara Ochieng,Danube Dream,2,3840,2026-01-20
+Amara Ochieng,Tokaji Aszú 5 Puttonyos,1,18000,2026-01-20
+Chen Wei,Wagyu Steak 200g,2,15600,2026-01-21
+Chen Wei,Hungarian Fire,1,4200,2026-01-21
+Chen Wei,Villányi Cabernet Franc,1,9600,2026-01-21
+Yuki Tanaka,Ribeye Steak 300g,2,10800,2026-01-22
+Yuki Tanaka,Paprika Passion,1,4800,2026-01-22
+Yuki Tanaka,Classic Cheesecake,2,2400,2026-01-22
+Priya Sharma,Filet Mignon 250g,1,12000,2026-01-23
+Priya Sharma,Budapest Sunset,2,3600,2026-01-23
+Priya Sharma,Badacsonyi Olaszrizling,1,8400,2026-01-23
+Sophie Dubois,T-Bone Steak 400g,2,11400,2026-01-24
+Sophie Dubois,Tokaji Twist,1,3900,2026-01-24
+Sophie Dubois,Lava Burst Cake,1,3000,2026-01-24
+Klaus Müller,Sirloin Steak 350g,1,10200,2026-01-25
+Klaus Müller,Danube Dream,1,3840,2026-01-25
+Klaus Müller,Szekszárdi Merlot,1,10200,2026-01-25
+Chioma Adeyemi,Porterhouse Steak 500g,1,13200,2026-01-26
+Chioma Adeyemi,Hungarian Fire,2,4200,2026-01-26
+Chioma Adeyemi,Somló Furmint,1,11400,2026-01-26
+Luca Rossi,Wagyu Steak 200g,1,15600,2026-01-27
+Luca Rossi,Paprika Passion,1,4800,2026-01-27
+Luca Rossi,Classic Cheesecake,1,2400,2026-01-27
+Beatriz Silva,Prosciutto Pizza,1,4800,2026-01-28
+Beatriz Silva,Mineral Water,1,960,2026-01-28
+Katalin Nagy,Pesto Pasta,1,3900,2026-01-29
+Katalin Nagy,Crème Brûlée,1,2400,2026-01-29
+Kwame Mensah,Truffle Fries,1,2100,2026-01-30
+Kwame Mensah,Margarita,1,3300,2026-01-30
+Mei Lin,Grilled Vegetables,1,1800,2026-01-31
+Mei Lin,Espresso,2,900,2026-01-31
