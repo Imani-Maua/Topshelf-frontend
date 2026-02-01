@@ -1,0 +1,118 @@
+.month-year-picker {
+    position: relative;
+    display: inline-block;
+}
+
+.picker-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1.25rem;
+    background: white;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #333;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.picker-toggle:hover {
+    border-color: #4A90E2;
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.1);
+}
+
+.calendar-icon {
+    font-size: 1.1rem;
+}
+
+.picker-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 280px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid #F0F2F5;
+    z-index: 1000;
+    padding: 1.25rem;
+    animation: slideIn 0.2s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.picker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #F0F2F5;
+}
+
+.year-nav-btn {
+    background: #F8F9FA;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 1.2rem;
+    transition: all 0.2s;
+}
+
+.year-nav-btn:hover {
+    background: #E8F4F8;
+    color: #4A90E2;
+}
+
+.current-year {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #1A1A1A;
+}
+
+.months-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.month-btn {
+    padding: 0.6rem 0;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #666;
+    transition: all 0.2s;
+}
+
+.month-btn:hover {
+    background: #F8F9FA;
+    color: #333;
+}
+
+.month-btn.active {
+    background: #4A90E2;
+    color: white;
+    font-weight: 700;
+}
