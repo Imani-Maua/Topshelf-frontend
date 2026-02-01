@@ -91,7 +91,7 @@ const Products = () => {
             errors.push('Price must be a non-negative number');
         }
         if (price > 1000000) {
-            errors.push('Price must not exceed $1,000,000');
+            errors.push('Price must not exceed Ft 1,000,000');
         }
         if (!currentProduct.categoryId) {
             errors.push('Category is required');
@@ -192,7 +192,7 @@ const Products = () => {
                 </div>
                 <div className="stat-card">
                     <span className="stat-label">Average Price</span>
-                    <span className="stat-value">${averagePrice}</span>
+                    <span className="stat-value">Ft {averagePrice}</span>
                 </div>
                 <div className="stat-card">
                     <span className="stat-label">Showing</span>
@@ -266,7 +266,7 @@ const Products = () => {
                                         </span>
                                     </td>
                                     <td className="price-column">
-                                        <span className="product-price">${product.price.toFixed(2)}</span>
+                                        <span className="product-price">Ft {product.price.toFixed(2)}</span>
                                     </td>
                                     <td>
                                         <div className="action-btns">
@@ -322,7 +322,7 @@ const Products = () => {
                             <div className="form-group">
                                 <label>Price</label>
                                 <div className="price-input-wrapper">
-                                    <span className="price-prefix">$</span>
+                                    <span className="price-prefix">Ft</span>
                                     <input
                                         type="number"
                                         className="price-input"
