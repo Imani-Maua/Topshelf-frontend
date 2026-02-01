@@ -98,25 +98,33 @@ const Categories = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const errors = validateTierRules(currentCategory.tierRules);
+        // Parse all tier rules to numbers before validation and submission
+        const sanitizedTiers = currentCategory.tierRules.map(tier => ({
+            ...tier,
+            minQuantity: parseInt(tier.minQuantity) || 0,
+            bonusPercentage: parseInt(tier.bonusPercentage) || 0
+        }));
+
+        const errors = validateTierRules(sanitizedTiers);
         if (errors.length > 0) {
             setValidationErrors(errors);
             return;
         }
 
+        const categoryToSave = {
+            name: currentCategory.name,
+            mode: currentCategory.mode,
+            tierRules: sanitizedTiers
+        };
+
         try {
             if (isEditing) {
                 await categoryService.updateCategory(currentCategory.id, {
-                    name: currentCategory.name,
-                    mode: currentCategory.mode,
-                    tierRules: currentCategory.tierRules.map(({ id, categoryId, ...rest }) => rest)
+                    ...categoryToSave,
+                    tierRules: categoryToSave.tierRules.map(({ id, categoryId, ...rest }) => rest)
                 });
             } else {
-                await categoryService.createCategory({
-                    name: currentCategory.name,
-                    mode: currentCategory.mode,
-                    tierRules: currentCategory.tierRules
-                });
+                await categoryService.createCategory(categoryToSave);
             }
             loadCategories();
             closeModal();
@@ -143,33 +151,49 @@ const Categories = () => {
     };
 
     const addTier = () => {
-        const lastTier = currentCategory.tierRules[currentCategory.tierRules.length - 1];
-        setCurrentCategory({
-            ...currentCategory,
-            tierRules: [
-                ...currentCategory.tierRules,
-                {
-                    minQuantity: lastTier.minQuantity + 10,
-                    bonusPercentage: lastTier.bonusPercentage + 5
-                }
-            ]
+        setCurrentCategory(prev => {
+            const tiers = prev.tierRules || [];
+            const lastTier = tiers.length > 0
+                ? tiers[tiers.length - 1]
+                : { minQuantity: 0, bonusPercentage: 0 };
+
+            return {
+                ...prev,
+                tierRules: [
+                    ...tiers,
+                    {
+                        minQuantity: lastTier.minQuantity + 10,
+                        bonusPercentage: lastTier.bonusPercentage + 5
+                    }
+                ]
+            };
         });
     };
 
     const removeTier = (index) => {
-        if (currentCategory.tierRules.length === 1) return;
-        setCurrentCategory({
-            ...currentCategory,
-            tierRules: currentCategory.tierRules.filter((_, i) => i !== index)
+        setCurrentCategory(prev => {
+            if (prev.tierRules.length <= 1) return prev;
+            return {
+                ...prev,
+                tierRules: prev.tierRules.filter((_, i) => i !== index)
+            };
         });
     };
 
     const updateTier = (index, field, value) => {
-        const newTiers = [...currentCategory.tierRules];
-        const parsed = parseInt(value) || 0;
-        // Enforce minimum of 1 for bonusPercentage
-        newTiers[index][field] = field === 'bonusPercentage' ? Math.max(1, parsed) : parsed;
-        setCurrentCategory({ ...currentCategory, tierRules: newTiers });
+        // Allow empty string so users can clear the input while typing
+        const newValue = value === '' ? '' : parseInt(value);
+
+        setCurrentCategory(prev => {
+            const newTiers = prev.tierRules.map((tier, i) => {
+                if (i !== index) return tier;
+                return {
+                    ...tier,
+                    [field]: field === 'bonusPercentage' && newValue !== '' ? Math.max(1, newValue) : newValue
+                };
+            });
+            return { ...prev, tierRules: newTiers };
+        });
     };
 
     if (loading && categories.length === 0) {
