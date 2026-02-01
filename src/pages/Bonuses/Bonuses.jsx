@@ -389,7 +389,7 @@ const Bonuses = () => {
                         <div className="summary-card large">
                             <span className="summary-label">Highest Earner</span>
                             <span className="summary-value success">
-                                {getHighestEarner() ? `$${getHighestEarner().amount.toFixed(2)}` : '$0.00'}
+                                {getHighestEarner() ? `Ft ${getHighestEarner().amount.toFixed(2)}` : '$0.00'}
                             </span>
                             <div className="stat-detail">
                                 {getHighestEarner()?.participant.name}
