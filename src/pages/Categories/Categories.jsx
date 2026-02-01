@@ -265,11 +265,12 @@ const Categories = () => {
                             </div>
 
                             <div className="category-actions">
-                                <button className="action-btn edit" onClick={() => openModal(category)}>
+                                <button className="action-btn edit" title="Edit Category" onClick={() => openModal(category)}>
                                     ✏️
                                 </button>
                                 <button
                                     className="action-btn delete"
+                                    title="Delete Category"
                                     onClick={() => handleDelete(category.id, category.name, category.products?.length || 0)}
                                 >
                                     🗑️
@@ -344,24 +345,28 @@ const Categories = () => {
                                 {currentCategory.tierRules.map((tier, index) => (
                                     <div className="tier-rule-row" key={index}>
                                         <div className="tier-input-group">
-                                            <label>Min Quantity</label>
+                                            <label htmlFor={`minQuantity-${index}`}>Min Quantity</label>
                                             <input
+                                                id={`minQuantity-${index}`}
                                                 type="number"
                                                 min="0"
                                                 required
                                                 value={tier.minQuantity}
                                                 onChange={(e) => updateTier(index, 'minQuantity', e.target.value)}
+                                                placeholder="0"
                                             />
                                         </div>
                                         <div className="tier-input-group">
-                                            <label>Bonus %</label>
+                                            <label htmlFor={`bonusPercentage-${index}`}>Bonus %</label>
                                             <input
+                                                id={`bonusPercentage-${index}`}
                                                 type="number"
                                                 min="1"
                                                 max="100"
                                                 required
                                                 value={tier.bonusPercentage}
                                                 onChange={(e) => updateTier(index, 'bonusPercentage', e.target.value)}
+                                                placeholder="5"
                                             />
                                         </div>
                                         <button
