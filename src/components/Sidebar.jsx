@@ -1,6 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import './Sidebar.css';
+import { useAuth } from '../context/AuthContext';
+
 
 
 const getInitials = (name) => {
@@ -12,7 +14,8 @@ const getInitials = (name) => {
 };
 
 function Sidebar() {
-    const userName = "Elaine Maua"
+    const { user, loading } = useAuth();
+
     return (
         <aside>
             <div className="sidebar">
@@ -51,17 +54,28 @@ function Sidebar() {
                         (isActive ? 'nav-item active' : 'nav-item')}>
                         <span className="icon">💰</span>Bonuses
                     </NavLink>
+
+                    <NavLink to='/receipts' className={({ isActive }) =>
+                        (isActive ? 'nav-item active' : 'nav-item')}>
+                        <span className="icon">🧾</span>Receipts
+                    </NavLink>
                 </nav>
 
                 <div className="sidebar-footer">
                     <div className="user-profile">
-                        <div className="user-avatar">
-                            <span className="initials">{getInitials(userName)}</span>
-                        </div>
-                        <div className="user-info">
-                            <p className="user-name">{userName}</p>
-                            <p className="user-role">Administrator</p>
-                        </div>
+                        {loading ? (
+                            <p className="loading-text">Loading profile...</p>
+                        ) : (
+                            <>
+                                <div className="user-avatar">
+                                    <span className="initials">{getInitials(user?.name || "")}</span>
+                                </div>
+                                <div className="user-info">
+                                    <p className="user-name">{user?.name}</p>
+                                    <p className="user-role">{user?.role || 'Administrator'}</p>
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
