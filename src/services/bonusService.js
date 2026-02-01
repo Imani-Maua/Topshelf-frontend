@@ -21,5 +21,19 @@ export const bonusService = {
             console.error('Error calculating bonuses:', error);
             throw error;
         }
+    },
+
+    /**
+     * Get bonus history/stats for a participant
+     * @param {string} participantId - Participant ID
+     */
+    getBonusHistory: async (participantId) => {
+        try {
+            const response = await axios.get(`http://localhost:3000/api/participants/${participantId}/stats`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching bonus history:', error);
+            throw error;
+        }
     }
 };
