@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { participantService } from '../../services/participantService';
 import ParticipantDetail from '../../components/ParticipantDetail/ParticipantDetail';
 import './Participants.css';
 
 const Participants = () => {
+    const location = useLocation();
     const [participants, setParticipants] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
@@ -19,11 +21,17 @@ const Participants = () => {
         loadParticipants();
     }, []);
 
+    useEffect(() => {
+        if (location.state?.openModal){
+            setShowModal(true);
+        }
+    }, [location]);
+
     const loadParticipants = async () => {
         try {
             setLoading(true);
-            const res = await participantService.getParticipants();
-            setParticipants(res.data || []);
+            const participants = await participantService.getParticipants();
+            setParticipants(participants.data || []);
         } catch (err) {
             setError('Failed to load participants. Please try again.');
         } finally {
@@ -35,8 +43,8 @@ const Participants = () => {
         setSearchQuery(e.target.value);
     };
 
-    const filteredParticipants = participants.filter(p =>
-        `${p.firstname} ${p.lastname}`.toLowerCase().includes(searchQuery.toLowerCase())
+    const filteredParticipants = participants.filter(participant =>
+        `${participant.firstname} ${participant.lastname}`.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     const openModal = (participant = { firstname: '', lastname: '' }) => {

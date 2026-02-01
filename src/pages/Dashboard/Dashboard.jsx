@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import MetricCard from '../../components/MetricCard';
 import MonthYearPicker from '../../components/MonthYearPicker/MonthYearPicker';
 import { dashboardService } from '../../services/dashboardService';
@@ -13,6 +14,7 @@ const CHART_COLORS = ['#4A90E2', '#34A853', '#FBBC05', '#EA4335', '#8E44AD'];
 
 function Dashboard() {
   const { user, loading: authLoading } = useAuth();
+  const navigate = useNavigate();
 
   // Date State - Defaulting to January as that's where the data is!
   const [selectedDate, setSelectedDate] = useState({
@@ -51,6 +53,9 @@ function Dashboard() {
     setSelectedDate({ month, year });
   };
 
+  const handleAddParticipant = () => {
+    navigate('/participants', {state: {openModal: true}});
+  }
   if (authLoading || (isLoading && !data)) {
     return <div className="dashboard-loading">Loading Dashboard Intelligence...</div>;
   }
@@ -209,7 +214,7 @@ function Dashboard() {
           <h3>Quick Actions</h3>
         </div>
         <div className='actions-grid'>
-          <button className='action-btn primary'>
+          <button className='action-btn primary' onClick={handleAddParticipant}>
             <span className='icon'>➕</span>
             Create New Participant
           </button>
