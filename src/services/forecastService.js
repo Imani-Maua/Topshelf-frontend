@@ -68,3 +68,7 @@ export const forecastService = {
         }
     }
 };
+
+// Standardized aliases for testing and consistency
+forecastService.getForecast = (month, year) => forecastService.getForecastByMonthYear(month, year);
+forecastService.saveForecast = (data) => forecastService.createForecast(data);
