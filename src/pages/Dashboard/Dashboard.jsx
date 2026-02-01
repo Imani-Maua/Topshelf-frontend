@@ -238,7 +238,7 @@ function Dashboard() {
             </div>
             {data?.topPerformers && data.topPerformers.length > 0 ? (
               data.topPerformers.map((payout, index) => (
-                <div className='table-row' key={index}>
+                <div className='table-row-data' key={index}>
                   <span className='performer-name'>{payout.participant.name}</span>
                   <span className='bonus-plus'>+ Ft {payout.amount.toLocaleString()}</span>
                 </div>

@@ -187,6 +187,8 @@
     gap: 0.5rem;
 }
 
+
+
 /* Alerts Feed Styles */
 .feed-content {
     display: flex;
@@ -244,11 +246,28 @@
 }
 
 .table-row.header {
+  
     font-weight: 700;
     color: #888;
     text-transform: uppercase;
+    display: flex;
     font-size: 0.75rem;
     letter-spacing: 0.5px;
+}
+
+.table-row.header span:nth-child(2){
+    margin-left: auto;
+}
+
+.table-row-data{
+    
+    display: flex;
+    padding: 0.5em;
+}
+
+.table-row-data .bonus-plus{
+    
+    margin-left: auto;
 }
 
 .performer-name {
