@@ -25,7 +25,7 @@ const Bonuses = () => {
     const [mode, setMode] = useState('input'); // 'input' or 'results'
     const [viewMode, setViewMode] = useState('breakdown'); // 'breakdown' or 'leaderboard'
     const [month, setMonth] = useState(location.state?.month || new Date().getMonth() + 1);
-    const [year, setYear] = useState(location.state?.year ||new Date().getFullYear());
+    const [year, setYear] = useState(location.state?.year || new Date().getFullYear());
     const [totalRevenue, setTotalRevenue] = useState('');
     const [forecast, setForecast] = useState(null);
     const [loadingForecast, setLoadingForecast] = useState(false);
@@ -223,16 +223,16 @@ const Bonuses = () => {
                             <form onSubmit={handleCalculate}>
                                 <div className="form-row">
                                     <div className="form-group">
-                                        <label>Month</label>
-                                        <select value={month} onChange={(e) => setMonth(parseInt(e.target.value))}>
+                                        <label htmlFor="month-select">Month</label>
+                                        <select id="month-select" value={month} onChange={(e) => setMonth(parseInt(e.target.value))}>
                                             {MONTHS.map(m => (
                                                 <option key={m.value} value={m.value}>{m.label}</option>
                                             ))}
                                         </select>
                                     </div>
                                     <div className="form-group">
-                                        <label>Year</label>
-                                        <select value={year} onChange={(e) => setYear(parseInt(e.target.value))}>
+                                        <label htmlFor="year-select">Year</label>
+                                        <select id="year-select" value={year} onChange={(e) => setYear(parseInt(e.target.value))}>
                                             {[2024, 2025, 2026, 2027, 2028].map(y => (
                                                 <option key={y} value={y}>{y}</option>
                                             ))}
@@ -241,10 +241,11 @@ const Bonuses = () => {
                                 </div>
 
                                 <div className="form-group">
-                                    <label>Total Revenue</label>
+                                    <label htmlFor="total-revenue">Total Revenue</label>
                                     <div className="revenue-input-wrapper">
                                         <span className="revenue-prefix">Ft</span>
                                         <input
+                                            id="total-revenue"
                                             type="number"
                                             className="revenue-input"
                                             required
@@ -389,7 +390,7 @@ const Bonuses = () => {
                         <div className="summary-card large">
                             <span className="summary-label">Highest Earner</span>
                             <span className="summary-value success">
-                                {getHighestEarner() ? `Ft ${getHighestEarner().amount.toFixed(2)}` : '$0.00'}
+                                {getHighestEarner() ? `Ft ${getHighestEarner().amount.toLocaleString()}` : 'Ft 0'}
                             </span>
                             <div className="stat-detail">
                                 {getHighestEarner()?.participant.name}
@@ -507,7 +508,7 @@ const Bonuses = () => {
                                             <span className="participant-name">{payout.participant.name}</span>
                                         </div>
                                         <div className="leaderboard-bonus">
-                                           Ft {payout.amount.toFixed(2)}
+                                            Ft {payout.amount.toFixed(2)}
                                         </div>
                                         <div className="leaderboard-categories">
                                             {categoryCount} {categoryCount === 1 ? 'category' : 'categories'}
@@ -528,7 +529,7 @@ const Bonuses = () => {
                                         >
                                             <span className="participant-name">{payout.participant.name}</span>
                                             <span className={`participant-bonus ${payout.amount === 0 ? 'zero' : ''}`}>
-                                               Ft {payout.amount.toFixed(2)}
+                                                Ft {payout.amount.toFixed(2)}
                                             </span>
                                             <span className={`expand-icon ${isExpanded ? 'expanded' : ''}`}>
                                                 ▼
