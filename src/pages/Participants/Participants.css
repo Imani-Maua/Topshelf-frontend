@@ -40,6 +40,16 @@
     display: flex;
     gap: 1rem;
     align-items: center;
+    padding-bottom: 1.5em;
+    
+}
+
+.participants-add{
+
+    display: flex;
+    gap: 1rem;
+    margin-left: auto;
+    justify-content: space-between;
 }
 
 .search-wrapper {
@@ -82,12 +92,35 @@
     padding: 0.7rem 1.25rem;
     border-radius: 8px;
     font-weight: 600;
+    font-size: 12px;
     cursor: pointer;
     transition: all 0.2s;
 }
 
+
+
 .btn-add:hover {
     background: #357ABD;
+    transform: translateY(-1px);
+}
+
+.btn-import {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #34A853;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.25rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-import:hover {
+    background: #2D8A45;
     transform: translateY(-1px);
 }
 

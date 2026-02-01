@@ -15,6 +15,8 @@ const Participants = () => {
     const [error, setError] = useState(null);
     const [selectedParticipant, setSelectedParticipant] = useState(null);
     const [detailLoading, setDetailLoading] = useState(false);
+    const [csvFile, setCsvFile] = useState(null);
+    const [importing, setImporting] = useState(false);
 
     // Fetch participants on mount
     useEffect(() => {
@@ -22,7 +24,7 @@ const Participants = () => {
     }, []);
 
     useEffect(() => {
-        if (location.state?.openModal){
+        if (location.state?.openModal) {
             setShowModal(true);
         }
     }, [location]);
@@ -73,6 +75,23 @@ const Participants = () => {
         }
     };
 
+    const handleCSVImport = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        try {
+            setImporting(true);
+            const result = await participantService.uploadCSV(file);
+            alert(`✅ Import successful!\n\nProcessed: ${result.data.processed}\nDuplicates: ${result.data.duplicates}\nErrors: ${result.data.errors}`);
+            loadParticipants();
+            e.target.value = ''; // Reset file input
+        } catch (err) {
+            alert('❌ Import failed: ' + (err.response?.data?.error || err.message));
+        } finally {
+            setImporting(false);
+        }
+    };
+
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to remove this participant?')) {
             try {
@@ -114,21 +133,7 @@ const Participants = () => {
                     <h2>Participants</h2>
                     <p>Manage your restaurant's high-performers.</p>
                 </div>
-                <div className="participants-controls">
-                    <div className="search-wrapper">
-                        <span className="search-icon">🔍</span>
-                        <input
-                            type="text"
-                            placeholder="Search by name..."
-                            className="search-input"
-                            value={searchQuery}
-                            onChange={handleSearch}
-                        />
-                    </div>
-                    <button className="btn-add" onClick={() => openModal()}>
-                        <span>➕</span> Add Participant
-                    </button>
-                </div>
+               
             </div>
 
             {/* Metrics Row */}
@@ -142,6 +147,34 @@ const Participants = () => {
                     <span className="stat-value">{participants.length > 0 ? participants.length : 0}</span>
                 </div>
             </div>
+
+             <div className="participants-controls">
+                    <div className="search-wrapper">
+                        <span className="search-icon">🔍</span>
+                        <input
+                            type="text"
+                            placeholder="Search by name..."
+                            className="search-input"
+                            value={searchQuery}
+                            onChange={handleSearch}
+                        />
+                    </div>
+                    <div className='participants-add'>
+                    <label className="btn-import" style={{ cursor: importing ? 'wait' : 'pointer', opacity: importing ? 0.6 : 1 }}>
+                        <span>📥</span> {importing ? 'Importing...' : 'Import CSV'}
+                        <input
+                            type="file"
+                            accept=".csv"
+                            onChange={handleCSVImport}
+                            style={{ display: 'none' }}
+                            disabled={importing}
+                        />
+                    </label>
+                    <button className="btn-add" onClick={() => openModal()}>
+                        <span>➕</span> Add Participant
+                    </button>
+                </div>
+                </div>
 
             {/* Table Area */}
             <div className="participants-table-container">
