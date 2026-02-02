@@ -1,11 +1,10 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import './Sidebar.css';
 import { useAuth } from '../context/AuthContext';
 
-
-
 const getInitials = (name) => {
+    if (!name) return '?';
     return name
         .split(' ')
         .map(word => word[0])
@@ -14,7 +13,13 @@ const getInitials = (name) => {
 };
 
 function Sidebar() {
-    const { user, loading } = useAuth();
+    const { user, isLoading, logout } = useAuth();
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        await logout();
+        navigate('/login');
+    };
 
     return (
         <aside>
@@ -52,36 +57,51 @@ function Sidebar() {
 
                     <NavLink to='/bonuses' className={({ isActive }) =>
                         (isActive ? 'nav-item active' : 'nav-item')}>
-                        <span className="icon">💰</span>Bonuses
+                        <span className="icon">🎁</span>Bonuses
                     </NavLink>
 
-                    <NavLink to='/receipts' className={({ isActive }) =>
+                    {user?.role === 'admin' && (
+                        <NavLink to='/users' className={({ isActive }) =>
+                            (isActive ? 'nav-item active' : 'nav-item')}>
+                            <span className="icon">👥</span>Users
+                        </NavLink>
+                    )}
+
+                    <NavLink to='/settings' className={({ isActive }) =>
                         (isActive ? 'nav-item active' : 'nav-item')}>
-                        <span className="icon">🧾</span>Receipts
+                        <span className="icon">⚙️</span>Settings
                     </NavLink>
                 </nav>
 
                 <div className="sidebar-footer">
                     <div className="user-profile">
-                        {loading ? (
+                        {isLoading ? (
                             <p className="loading-text">Loading profile...</p>
-                        ) : (
+                        ) : user ? (
                             <>
                                 <div className="user-avatar">
-                                    <span className="initials">{getInitials(user?.name || "")}</span>
+                                    <span className="initials">
+                                        {getInitials(`${user.firstname} ${user.lastname}`)}
+                                    </span>
                                 </div>
                                 <div className="user-info">
-                                    <p className="user-name">{user?.name}</p>
-                                    <p className="user-role">{user?.role || 'Administrator'}</p>
+                                    <p className="user-name">{user.firstname} {user.lastname}</p>
+                                    <p className="user-role">{user.role === 'admin' ? 'Administrator' : 'User'}</p>
                                 </div>
+                                <button
+                                    className="btn-logout"
+                                    onClick={handleLogout}
+                                    title="Logout"
+                                >
+                                    🚪
+                                </button>
                             </>
-                        )}
+                        ) : null}
                     </div>
                 </div>
             </div>
         </aside>
     )
 }
-
 
 export default Sidebar;

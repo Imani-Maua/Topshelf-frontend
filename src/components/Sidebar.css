@@ -110,3 +110,27 @@
     color: #999;
     margin: 0;
 }
+
+.btn-logout {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 8px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+}
+
+.btn-logout:hover {
+    background: #FFF1F0;
+}
+
+.loading-text {
+    color: #999;
+    font-size: 0.85rem;
+    margin: 0;
+}
