@@ -1,5 +1,6 @@
 import { AuthProvider } from './context/AuthContext';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute';
 import Sidebar from './components/Sidebar';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Participants from './pages/Participants/Participants';
@@ -8,13 +9,20 @@ import Products from './pages/Products/Products';
 import Forecasts from './pages/Forecasts/Forecasts';
 import Bonuses from './pages/Bonuses/Bonuses';
 import Receipts from './pages/Receipts/Receipts';
+import UserManagement from './pages/UserManagement/UserManagement';
+import Login from './pages/Login/Login';
+import SetPassword from './pages/SetPassword/SetPassword';
 import './App.css';
 
-const ComingSoon = ({ title, icon }) => (
-  <div className="coming-soon-container">
-    <span>{icon}</span>
-    <h2>{title} Page</h2>
-    <p>We're building this feature for you right now!</p>
+// Layout wrapper for protected pages
+const AppLayout = ({ children }) => (
+  <div className="app">
+    <div className="layout-wrapper">
+      <Sidebar />
+      <main className="main-content">
+        {children}
+      </main>
+    </div>
   </div>
 );
 
@@ -22,22 +30,67 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <div className="app">
-          <div className="layout-wrapper">
-            <Sidebar />
-            <main className="main-content">
-              <Routes>
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/participants" element={<Participants />} />
-                <Route path="/categories" element={<Categories />} />
-                <Route path="/products" element={<Products />} />
-                <Route path="/forecasts" element={<Forecasts />} />
-                <Route path="/bonuses" element={<Bonuses />} />
-                <Route path="/receipts" element={<Receipts />} />
-              </Routes>
-            </main>
-          </div>
-        </div>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/set-password" element={<SetPassword />} />
+
+          {/* Protected Routes */}
+          <Route path="/" element={
+            <ProtectedRoute>
+              <AppLayout><Dashboard /></AppLayout>
+            </ProtectedRoute>
+          } />
+
+          <Route path="/dashboard" element={
+            <ProtectedRoute>
+              <AppLayout><Dashboard /></AppLayout>
+            </ProtectedRoute>
+          } />
+
+          <Route path="/participants" element={
+            <ProtectedRoute>
+              <AppLayout><Participants /></AppLayout>
+            </ProtectedRoute>
+          } />
+
+          <Route path="/categories" element={
+            <ProtectedRoute>
+              <AppLayout><Categories /></AppLayout>
+            </ProtectedRoute>
+          } />
+
+          <Route path="/products" element={
+            <ProtectedRoute>
+              <AppLayout><Products /></AppLayout>
+            </ProtectedRoute>
+          } />
+
+          <Route path="/forecasts" element={
+            <ProtectedRoute>
+              <AppLayout><Forecasts /></AppLayout>
+            </ProtectedRoute>
+          } />
+
+          <Route path="/bonuses" element={
+            <ProtectedRoute>
+              <AppLayout><Bonuses /></AppLayout>
+            </ProtectedRoute>
+          } />
+
+          <Route path="/receipts" element={
+            <ProtectedRoute>
+              <AppLayout><Receipts /></AppLayout>
+            </ProtectedRoute>
+          } />
+
+          {/* Admin Only Routes */}
+          <Route path="/users" element={
+            <ProtectedRoute requireAdmin={true}>
+              <AppLayout><UserManagement /></AppLayout>
+            </ProtectedRoute>
+          } />
+        </Routes>
       </BrowserRouter>
     </AuthProvider>
   );
