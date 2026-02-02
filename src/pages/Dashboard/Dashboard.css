@@ -263,11 +263,19 @@
     
     display: flex;
     padding: 0.5em;
+    border-bottom: 0.5px solid #d4d2d2;
+    
+}
+
+.table-row-data:hover{
+    cursor: pointer;
+    background-color: #d7eaff;
 }
 
 .table-row-data .bonus-plus{
     
     margin-left: auto;
+
 }
 
 .performer-name {
