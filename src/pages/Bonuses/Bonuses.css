@@ -238,6 +238,43 @@
     margin-bottom: 2rem;
 }
 
+.results-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.btn-save-bonuses {
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #34A853 0%, #2E7D32 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-save-bonuses:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 168, 83, 0.3);
+}
+
+.btn-save-bonuses:disabled {
+    background: #CCC;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.saved-badge {
+    padding: 0.75rem 1.5rem;
+    background: #E8F5E9;
+    color: #2E7D32;
+    border-radius: 8px;
+    font-weight: 700;
+    border: 2px solid #81C784;
+}
+
 .btn-new-calculation {
     padding: 0.75rem 1.5rem;
     background: white;
@@ -253,6 +290,7 @@
     background: #4A90E2;
     color: white;
 }
+
 
 .summary-cards {
     display: grid;

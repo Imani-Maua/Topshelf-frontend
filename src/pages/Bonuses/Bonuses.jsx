@@ -35,6 +35,9 @@ const Bonuses = () => {
     const [expandedParticipants, setExpandedParticipants] = useState(new Set());
     const [showCelebration, setShowCelebration] = useState(false);
     const [showImportModal, setShowImportModal] = useState(false);
+    const [saving, setSaving] = useState(false);
+    const [savedResults, setSavedResults] = useState(null); // Track if current results are saved
+
 
     useEffect(() => {
         loadForecast();
@@ -112,6 +115,19 @@ const Bonuses = () => {
         setValidationErrors([]);
         setExpandedParticipants(new Set());
         setShowCelebration(false);
+    };
+
+    const handleSaveBonuses = async () => {
+        try {
+            setSaving(true);
+            await bonusService.saveBonuses(month, year, results);
+            setSavedResults({ month, year, timestamp: new Date() });
+            alert(`Bonuses saved successfully for ${monthName} ${year}!`);
+        } catch (err) {
+            alert('Failed to save bonuses: ' + (err.response?.data?.message || err.message));
+        } finally {
+            setSaving(false);
+        }
     };
 
     const toggleParticipant = (participantId) => {
@@ -347,9 +363,22 @@ const Bonuses = () => {
 
                     <div className="results-header">
                         <h3>Calculation Results for {monthName} {year}</h3>
-                        <button className="btn-new-calculation" onClick={handleNewCalculation}>
-                            New Calculation
-                        </button>
+                        <div className="results-actions">
+                            {savedResults?.month === month && savedResults?.year === year ? (
+                                <span className="saved-badge">✓ Saved</span>
+                            ) : (
+                                <button
+                                    className="btn-save-bonuses"
+                                    onClick={handleSaveBonuses}
+                                    disabled={saving}
+                                >
+                                    {saving ? 'Saving...' : '💾 Save Bonuses'}
+                                </button>
+                            )}
+                            <button className="btn-new-calculation" onClick={handleNewCalculation}>
+                                New Calculation
+                            </button>
+                        </div>
                     </div>
 
                     <div className="summary-cards enhanced">

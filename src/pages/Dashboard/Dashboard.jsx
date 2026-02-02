@@ -85,7 +85,7 @@ function Dashboard() {
       {/* Header with Custom Month/Year Picker */}
       <div className='dashboard-header'>
         <div className='dashboard-title'>
-          {!authLoading && <h2>Welcome back, {user?.name}!</h2>}
+          {!authLoading && <h2>Welcome back, {user?.firstname || user?.username}!</h2>}
         </div>
         <div className='dashboard-filters'>
           <MonthYearPicker
