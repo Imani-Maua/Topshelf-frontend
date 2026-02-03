@@ -6,7 +6,11 @@ import Sidebar from '../../../components/Sidebar';
 
 // Mock the auth context
 vi.mock('../../../context/AuthContext', () => ({
-    useAuth: () => ({ user: { name: 'Test User' }, logout: vi.fn() })
+    useAuth: () => ({
+        user: { firstname: 'Test', lastname: 'User', role: 'user' },
+        isLoading: false,
+        logout: vi.fn()
+    })
 }));
 
 describe('Sidebar Component Tests', () => {
@@ -24,7 +28,7 @@ describe('Sidebar Component Tests', () => {
         expect(screen.getByText('Products')).toBeInTheDocument();
         expect(screen.getByText('Forecasts')).toBeInTheDocument();
         expect(screen.getByText('Bonuses')).toBeInTheDocument();
-        expect(screen.getByText('Receipts')).toBeInTheDocument();
+        expect(screen.getByText('Settings')).toBeInTheDocument();
     });
 
     it('should render navigation icons', () => {
@@ -36,12 +40,12 @@ describe('Sidebar Component Tests', () => {
 
         // Check for emoji icons (matching actual Sidebar.jsx)
         expect(screen.getByText('🏠')).toBeInTheDocument(); // Dashboard
-        expect(screen.getByText('👤')).toBeInTheDocument(); // Participants (single person)
+        expect(screen.getByText('👤')).toBeInTheDocument(); // Participants
         expect(screen.getByText('📁')).toBeInTheDocument(); // Categories
         expect(screen.getByText('🛍️')).toBeInTheDocument(); // Products
         expect(screen.getByText('📊')).toBeInTheDocument(); // Forecasts
-        expect(screen.getByText('💰')).toBeInTheDocument(); // Bonuses
-        expect(screen.getByText('🧾')).toBeInTheDocument(); // Receipts
+        expect(screen.getByText('🎁')).toBeInTheDocument(); // Bonuses
+        expect(screen.getByText('⚙️')).toBeInTheDocument(); // Settings
     });
 
     it('should have correct navigation links', () => {
@@ -78,6 +82,7 @@ describe('Sidebar Component Tests', () => {
             </MemoryRouter>
         );
 
+        // User name is rendered as "firstname lastname"
         expect(screen.getByText('Test User')).toBeInTheDocument();
     });
 
@@ -89,6 +94,6 @@ describe('Sidebar Component Tests', () => {
         );
 
         const navLinks = container.querySelectorAll('.nav-item');
-        expect(navLinks.length).toBe(7); // Dashboard, Participants, Categories, Products, Forecasts, Bonuses, Receipts
+        expect(navLinks.length).toBe(7); // Dashboard, Participants, Categories, Products, Forecasts, Bonuses, Settings (Users is admin-only, not shown for regular users)
     });
 });
