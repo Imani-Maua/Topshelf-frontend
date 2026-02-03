@@ -60,6 +60,11 @@ function Sidebar() {
                         <span className="icon">🎁</span>Bonuses
                     </NavLink>
 
+                    <NavLink to='/receipts' className={({ isActive }) =>
+                        (isActive ? 'nav-item active' : 'nav-item')}>
+                        <span className="icon">🧾</span>Receipts
+                    </NavLink>
+
                     {user?.role === 'admin' && (
                         <NavLink to='/users' className={({ isActive }) =>
                             (isActive ? 'nav-item active' : 'nav-item')}>

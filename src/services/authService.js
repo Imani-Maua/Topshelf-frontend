@@ -134,14 +134,40 @@ export const authService = {
     },
 
     /**
-     * Get all users (Admin only)
+     * Update user (Admin only)
      */
-    getAllUsers: async () => {
+    updateUser: async (userId, userData) => {
         try {
-            const response = await axios.get(`${API_URL}/users`);
+            const response = await axios.put(`${API_URL}/users/${userId}`, userData);
             return response.data.data;
         } catch (error) {
-            console.error('Get users error:', error);
+            console.error('Update user error:', error);
+            throw error;
+        }
+    },
+
+    /**
+     * Deactivate user (Admin only)
+     */
+    deactivateUser: async (userId) => {
+        try {
+            const response = await axios.patch(`${API_URL}/users/${userId}/deactivate`);
+            return response.data.data;
+        } catch (error) {
+            console.error('Deactivate user error:', error);
+            throw error;
+        }
+    },
+
+    /**
+     * Delete user (Admin only)
+     */
+    deleteUser: async (userId) => {
+        try {
+            const response = await axios.delete(`${API_URL}/users/${userId}`);
+            return response.data.data;
+        } catch (error) {
+            console.error('Delete user error:', error);
             throw error;
         }
     }

@@ -51,11 +51,20 @@ const UserManagement = () => {
     };
 
     const handleSendInvite = async (userId) => {
+        console.log('🔵 handleSendInvite called with userId:', userId);
+        setError('');
+
         try {
-            await authService.sendInviteToUser(userId);
-            alert('Invite sent successfully!');
+            console.log('🔵 Calling authService.sendInvite...');
+            const result = await authService.sendInvite(userId);
+            console.log('✅ Invite sent successfully!', result);
+            alert('Invite sent successfully! Check Mailtrap inbox.');
         } catch (err) {
-            setError(err.response?.data?.error || 'Failed to send invite');
+            console.error('❌ Error sending invite:', err);
+            console.error('❌ Error response:', err.response);
+            const errorMsg = err.response?.data?.error || err.message || 'Failed to send invite';
+            setError(errorMsg);
+            alert(`Failed to send invite: ${errorMsg}`);
         }
     };
 
@@ -143,13 +152,15 @@ const UserManagement = () => {
                                     </span>
                                 </td>
                                 <td className="actions-cell">
-                                    <button
-                                        className="btn-action btn-invite"
-                                        onClick={() => handleSendInvite(user.id)}
-                                        title="Send Invite"
-                                    >
-                                        📧
-                                    </button>
+                                    {!user.isActive && (
+                                        <button
+                                            className="btn-action btn-invite"
+                                            onClick={() => handleSendInvite(user.id)}
+                                            title="Send Invite"
+                                        >
+                                            📧
+                                        </button>
+                                    )}
                                     {user.isActive && (
                                         <button
                                             className="btn-action btn-deactivate"
