@@ -1,0 +1,41 @@
+name: CI
+
+on: 
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Build Docker lint image
+        run: |
+          docker build --target lint -t topshelf-frontend:lint .
+      
+      - name: Run linter in Docker
+        run: |
+          docker run --rm topshelf-frontend:lint
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Build Docker test image
+        run: |
+          docker build --target test -t topshelf-frontend:test .
+        
+      - name: Run tests in Docker
+        run: | 
+          docker run --rm topshelf-frontend:test
+        env:
+        CI: true
+
+          
