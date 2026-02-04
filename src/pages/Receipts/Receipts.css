@@ -16,6 +16,8 @@
     }
 }
 
+
+
 .receipts-header {
     margin-bottom: 2rem;
     display: flex;
@@ -57,6 +59,42 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
+}
+
+.filter-group{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    align-items: center;
+}
+
+.filter-group button{
+    padding:1em;
+    background-color: #4A90E2;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 
+        background-color 0.2s ease,
+        transform 0.1s ease,
+        box-shadow 0.1s ease;
+}
+
+
+.filter-group button:hover{
+    background-color: #76abe7;
+}
+
+.filter-group button:active{
+    transform: scale(0.96);
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.3);
+}
+
+button:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 3px;
 }
 
 .filter-group label {
