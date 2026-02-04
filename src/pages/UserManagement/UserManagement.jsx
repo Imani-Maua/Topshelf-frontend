@@ -19,10 +19,6 @@ const UserManagement = () => {
         role: 'user'
     });
 
-    useEffect(() => {
-        fetchUsers();
-    }, []);
-
     const fetchUsers = async () => {
         setIsLoading(true);
         setError('');
@@ -35,6 +31,12 @@ const UserManagement = () => {
             setIsLoading(false);
         }
     };
+
+    useEffect(() => {
+        fetchUsers();
+    }, []);
+
+    
 
     const handleCreateUser = async (e) => {
         e.preventDefault();
@@ -58,7 +60,7 @@ const UserManagement = () => {
             console.log('🔵 Calling authService.sendInvite...');
             const result = await authService.sendInvite(userId);
             console.log('✅ Invite sent successfully!', result);
-            alert('Invite sent successfully! Check Mailtrap inbox.');
+            alert('Invite sent successfully!');
         } catch (err) {
             console.error('❌ Error sending invite:', err);
             console.error('❌ Error response:', err.response);

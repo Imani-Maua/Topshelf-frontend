@@ -156,6 +156,7 @@
     font-size: 1.2rem;
     transition: transform 0.2s ease;
     border-radius: 4px;
+    
 }
 
 .btn-action:hover {
@@ -168,6 +169,11 @@
 
 .btn-deactivate:hover {
     background: rgba(255, 193, 7, 0.1);
+}
+
+
+.btn-delete{
+    padding: 0.1em;
 }
 
 .btn-delete:hover {
