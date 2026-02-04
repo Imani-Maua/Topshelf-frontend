@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { receiptService } from '../../services/receiptService';
+import { participantService } from '../../services/participantService';
 import './Receipts.css';
+import { productService } from '../../services/productService';
 
 const MONTHS = [
     { value: 1, label: 'January' },
@@ -30,10 +32,47 @@ const Receipts = () => {
         offset: 0
     });
     const [totalReceipts, setTotalReceipts] = useState(0);
+    const [participants, setParticipants] = useState([]);
+    const [products, setProducts] = useState([]);
 
     useEffect(() => {
         loadReceipts();
     }, [filters]);
+
+    useEffect(() => {
+        loadParticipants();}, 
+        []);
+    
+        useEffect(() => {
+            loadProducts();
+        }, []);
+
+        const loadProducts = async () => {
+            try{
+                setLoading(true);
+                const response = await productService.getProducts();
+                setProducts(response.data || []);
+            }
+            catch(err){
+                setError('Failed to load products. Please try again');
+            }
+            finally{
+                setLoading(false);
+            }
+        }
+    
+        const loadParticipants = async () => {
+            try{
+                setLoading(true);
+                const response = await participantService.getParticipants();
+                setParticipants(response.data || []);
+            }
+            catch(err){
+                setError('Failed to load participants. Please try again.');
+            } finally{
+                setLoading(false);
+            }
+        };
 
     const loadReceipts = async () => {
         try {
@@ -136,8 +175,8 @@ const Receipts = () => {
                         onChange={(e) => handleFilterChange('month', e.target.value)}
                     >
                         <option value="">All Months</option>
-                        {MONTHS.map(m => (
-                            <option key={m.value} value={m.value}>{m.label}</option>
+                        {MONTHS.map(month => (
+                            <option key={month.value} value={month.value}>{month.label}</option>
                         ))}
                     </select>
                 </div>
@@ -149,23 +188,39 @@ const Receipts = () => {
                         onChange={(e) => handleFilterChange('year', e.target.value)}
                     >
                         <option value="">All Years</option>
-                        {[2024, 2025, 2026, 2027, 2028].map(y => (
-                            <option key={y} value={y}>{y}</option>
+                        {[2024, 2025, 2026, 2027, 2028].map(year => (
+                            <option key={year} value={year}>{year}</option>
                         ))}
                     </select>
                 </div>
 
                 <div className="filter-group">
-                    <label htmlFor="limit-select">Results per page</label>
+                    <label>Participant</label>
                     <select
-                        id="limit-select"
-                        value={filters.limit}
-                        onChange={(e) => handleFilterChange('limit', parseInt(e.target.value))}
+                        value={filters.participantId}
+                        onChange={(e) => handleFilterChange('participantId', e.target.value)}
                     >
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                        <option value="200">200</option>
-                        <option value="500">500</option>
+                        <option value="">All Participants</option>
+                        {participants.map(participant => (
+                            <option key={participant.id} value={`${participant.firstname} ${participant.lastname}`}>
+                                {`${participant.firstname} ${participant.lastname}`}
+                                </option>
+                        ))}
+                    </select>
+                </div>
+
+                <div className="filter-group">
+                    <label>Product</label>
+                    <select
+                        value={filters.productId}
+                        onChange={(e) => handleFilterChange('productId', e.target.value)}
+                    >
+                        <option value="">All Products</option>
+                        {products.map(product => (
+                            <option key={product.id} value={`${product.name}`}>
+                                {`${product.name}`}
+                                </option>
+                        ))}
                     </select>
                 </div>
 
