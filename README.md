@@ -1,4 +1,4 @@
-# TopShelf v 1.0
+# TopShelf v1.0
 
 Hey there! 👋 Welcome to TopShelf, an app that automatically calculates your team's bonuses based on their sales data.
 
