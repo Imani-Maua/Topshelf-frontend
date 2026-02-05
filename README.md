@@ -1,6 +1,6 @@
-# TopShelf: Your Team's Bonus Calculator That Actually Works
+# TopShelf
 
-Hey there! 👋 Welcome to TopShelf - the app that automatically calculates your team's bonuses based on their sales data.
+Hey there! 👋 Welcome to TopShelf, an app that automatically calculates your team's bonuses based on their sales data.
 
 ## 🤔 So, What's This All About?
 
@@ -78,7 +78,7 @@ npm run dev
 
 Visit `http://localhost:5173` and you're off to the races! 🏃‍♂️
 
-**Note**: You'll need the backend running too. Check out the [backend repo](../TopShelf-backend) for setup instructions.
+**Note**: You'll need the backend running too. Check out the [backend repo](https://github.com/Imani-Maua/TopShelf-backend) for setup instructions.
 
 ## 🧪 Testing 
 
