@@ -173,7 +173,7 @@ const Receipts = () => {
                 <button className='filter-toggle' onClick={() => {
                     setShowFilters(!showFilters);
                 }}>
-                    Filters <span className={`filter-arrow ${showFilters ? 'open': ''}`}>▼</span>
+                    Filters <span className={`filter-arrow ${showFilters ? 'open': ''}`}>▲</span>
 
                 </button>
             </div>

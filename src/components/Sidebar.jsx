@@ -72,10 +72,7 @@ function Sidebar() {
                         </NavLink>
                     )}
 
-                    <NavLink to='/settings' className={({ isActive }) =>
-                        (isActive ? 'nav-item active' : 'nav-item')}>
-                        <span className="icon">⚙️</span>Settings
-                    </NavLink>
+
                 </nav>
 
                 <div className="sidebar-footer">
