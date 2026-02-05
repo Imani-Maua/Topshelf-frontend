@@ -19,17 +19,18 @@ const MONTHS = [
     { value: 12, label: 'December' }
 ];
 
-const Receipts = () => {
-    const [receipts, setReceipts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const INITIAL_FILTERS = {
+const INITIAL_FILTERS = {
     month: '',
     year: '',
     participantId: '',
     productId: '',
     limit: 100,
     offset: 0}
+
+const Receipts = () => {
+    const [receipts, setReceipts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [filters, setFilters] = useState(INITIAL_FILTERS);
     const [totalReceipts, setTotalReceipts] = useState(0);
     const [participants, setParticipants] = useState([]);
@@ -162,7 +163,7 @@ const Receipts = () => {
             <div className="receipts-header">
                 <div>
                     <h2>Receipt Data</h2>
-                    <p>View all imported sales receipts. This data is READ-ONLY.</p>
+                    <p>View all imported sales receipts.</p>
                 </div>
                 <div className="readonly-badge">
                     🔒 READ-ONLY
@@ -172,7 +173,7 @@ const Receipts = () => {
                 <button className='filter-toggle' onClick={() => {
                     setShowFilters(!showFilters);
                 }}>
-                    Filters {showFilters?  '▼' : '▲'}
+                    Filters <span className={`filter-arrow ${showFilters ? 'open': ''}`}>▼</span>
 
                 </button>
             </div>
@@ -180,7 +181,7 @@ const Receipts = () => {
 
                 
                 {showFilters && (
-                <div className='filter-section'>
+                <div className='filters-section'>
                     <div className="filter-group">
                         <label htmlFor="month-select">Month</label>
                         <select
@@ -240,9 +241,9 @@ const Receipts = () => {
                 </div>
                 </div>)}
 
-                {hasActiveFilters && (
-                    <div>
-                        <button className='filters-button' onClick={() => {
+                {hasActiveFilters &&  showFilters && (
+                    <div className='clear-button'>
+                        <button onClick={() => {
                                 setFilters(INITIAL_FILTERS);
                         }}>
                                 Clear All
