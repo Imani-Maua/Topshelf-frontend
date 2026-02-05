@@ -36,6 +36,4 @@ jobs:
         run: | 
           docker run --rm topshelf-frontend:test
         env:
-        CI: true
-
-          
+          CI: true
