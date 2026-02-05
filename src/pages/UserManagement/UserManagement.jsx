@@ -16,7 +16,7 @@ const UserManagement = () => {
         email: '',
         firstname: '',
         lastname: '',
-        role: 'user'
+        role: 'operations'
     });
 
     const fetchUsers = async () => {
@@ -36,7 +36,7 @@ const UserManagement = () => {
         fetchUsers();
     }, []);
 
-    
+
 
     const handleCreateUser = async (e) => {
         e.preventDefault();
@@ -45,7 +45,7 @@ const UserManagement = () => {
         try {
             await authService.createUser(formData);
             setShowCreateModal(false);
-            setFormData({ username: '', email: '', firstname: '', lastname: '', role: 'user' });
+            setFormData({ username: '', email: '', firstname: '', lastname: '', role: 'operations' });
             fetchUsers();
         } catch (err) {
             setError(err.response?.data?.error || 'Failed to create user');
@@ -145,7 +145,9 @@ const UserManagement = () => {
                                 <td>{user.username}</td>
                                 <td>
                                     <span className={`role-badge ${user.role}`}>
-                                        {user.role}
+                                        {user.role === 'admin' ? 'HR Admin' :
+                                            user.role === 'operations' ? 'Operations' :
+                                                user.role === 'finance' ? 'Finance' : user.role}
                                     </span>
                                 </td>
                                 <td>
@@ -240,8 +242,9 @@ const UserManagement = () => {
                                     onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                                     required
                                 >
-                                    <option value="user">User</option>
+                                    <option value="operations">Operations</option>
                                     <option value="admin">Admin</option>
+                                    <option value="finance">Finance</option>
                                 </select>
                             </div>
                             <div className="modal-actions">

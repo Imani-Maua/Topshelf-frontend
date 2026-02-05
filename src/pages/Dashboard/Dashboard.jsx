@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { authService } from '../../services/authService';
 import MetricCard from '../../components/MetricCard';
 import CSVImportModal from '../../components/CSVImportModal/CSVImportModal';
 import MonthYearPicker from '../../components/MonthYearPicker/MonthYearPicker';
@@ -251,25 +252,27 @@ function Dashboard() {
       </div>
 
       {/* Quick Actions Section */}
-      <div className='dashboard-actions'>
-        <div className='actions-title'>
-          <h3>Quick Actions</h3>
+      {authService.canPerformOperations() && (
+        <div className='dashboard-actions'>
+          <div className='actions-title'>
+            <h3>Quick Actions</h3>
+          </div>
+          <div className='actions-grid'>
+            <button className='action-btn primary' onClick={handleAddParticipant}>
+              <span className='icon'>➕</span>
+              Create New Participant
+            </button>
+            <button className='action-btn secondary' onClick={handleCalculateBonuses}>
+              <span className='icon'>🧮</span>
+              Calculate Monthly Bonuses
+            </button>
+            <button className='action-btn outline' onClick={handleCSVImport}>
+              <span className='icon'>📥</span>
+              Import Sales Data (CSV)
+            </button>
+          </div>
         </div>
-        <div className='actions-grid'>
-          <button className='action-btn primary' onClick={handleAddParticipant}>
-            <span className='icon'>➕</span>
-            Create New Participant
-          </button>
-          <button className='action-btn secondary' onClick={handleCalculateBonuses}>
-            <span className='icon'>🧮</span>
-            Calculate Monthly Bonuses
-          </button>
-          <button className='action-btn outline' onClick={handleCSVImport}>
-            <span className='icon'>📥</span>
-            Import Sales Data (CSV)
-          </button>
-        </div>
-      </div>
+      )}
 
       <CSVImportModal
         isOpen={showCSVModal}

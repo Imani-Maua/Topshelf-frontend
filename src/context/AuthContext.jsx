@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
     const loadUser = async () => {
         try {
             const userData = await authService.getCurrentUser();
+            localStorage.setItem('user', JSON.stringify(userData)); // Cache for role checks
             setUser(userData);
         } catch (error) {
             console.error('Failed to load user:', error);
@@ -31,6 +32,7 @@ export const AuthProvider = ({ children }) => {
     const login = async (username, password) => {
         const { accessToken, user: userData } = await authService.login(username, password);
         localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('user', JSON.stringify(userData)); // Cache user data for role checks
         setUser(userData);
     };
 
@@ -41,6 +43,7 @@ export const AuthProvider = ({ children }) => {
             console.error('Logout error:', error);
         }
         localStorage.removeItem('accessToken');
+        localStorage.removeItem('user'); // Clear cached user data
         setUser(null);
     };
 

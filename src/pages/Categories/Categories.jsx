@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { categoryService } from '../../services/categoryService';
+import { authService } from '../../services/authService';
 import './Categories.css';
 
 const Categories = () => {
@@ -225,9 +226,11 @@ const Categories = () => {
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
                     </div>
-                    <button className="btn-add" onClick={() => openModal()}>
-                        <span>➕</span> Add Category
-                    </button>
+                    {authService.canPerformOperations() && (
+                        <button className="btn-add" onClick={() => openModal()}>
+                            <span>➕</span> Add Category
+                        </button>
+                    )}
                 </div>
             </div>
 
@@ -264,18 +267,20 @@ const Categories = () => {
                                 </div>
                             </div>
 
-                            <div className="category-actions">
-                                <button className="action-btn edit" title="Edit Category" onClick={() => openModal(category)}>
-                                    ✏️
-                                </button>
-                                <button
-                                    className="action-btn delete"
-                                    title="Delete Category"
-                                    onClick={() => handleDelete(category.id, category.name, category.products?.length || 0)}
-                                >
-                                    🗑️
-                                </button>
-                            </div>
+                            {authService.canPerformOperations() && (
+                                <div className="category-actions">
+                                    <button className="action-btn edit" title="Edit Category" onClick={() => openModal(category)}>
+                                        ✏️
+                                    </button>
+                                    <button
+                                        className="action-btn delete"
+                                        title="Delete Category"
+                                        onClick={() => handleDelete(category.id, category.name, category.products?.length || 0)}
+                                    >
+                                        🗑️
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     ))
                 ) : (

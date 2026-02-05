@@ -88,7 +88,11 @@ function Sidebar() {
                                 </div>
                                 <div className="user-info">
                                     <p className="user-name">{user.firstname} {user.lastname}</p>
-                                    <p className="user-role">{user.role === 'admin' ? 'Administrator' : 'User'}</p>
+                                    <p className="user-role">
+                                        {user.role === 'admin' ? 'HR Admin' :
+                                            user.role === 'operations' ? 'Operations' :
+                                                user.role === 'finance' ? 'Finance' : 'User'}
+                                    </p>
                                 </div>
                                 <button
                                     className="btn-logout"

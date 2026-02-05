@@ -84,12 +84,81 @@ export const authService = {
         try {
             const response = await axios.post(`${API_URL}/logout`);
             localStorage.removeItem('accessToken');
+            localStorage.removeItem('user'); // Clear cached user data
             return response.data.data;
         } catch (error) {
             console.error('Logout error:', error);
             localStorage.removeItem('accessToken');
+            localStorage.removeItem('user');
             throw error;
         }
+    },
+
+    // ==================== ROLE-BASED ACCESS CONTROL ====================
+
+    /**
+     * Get current user from localStorage cache
+     * @returns {Object|null} User object or null
+     */
+    getUserFromCache: () => {
+        const userStr = localStorage.getItem('user');
+        return userStr ? JSON.parse(userStr) : null;
+    },
+
+    /**
+     * Check if current user has admin role (user management)
+     * @returns {boolean}
+     */
+    isAdmin: () => {
+        const user = authService.getUserFromCache();
+        return user && user.role === 'admin';
+    },
+
+    /**
+     * Check if current user has operations role (operational write access)
+     * @returns {boolean}
+     */
+    isOperations: () => {
+        const user = authService.getUserFromCache();
+        return user && user.role === 'operations';
+    },
+
+    /**
+     * Check if current user has finance role (read-only)
+     * @returns {boolean}
+     */
+    isFinance: () => {
+        const user = authService.getUserFromCache();
+        return user && user.role === 'finance';
+    },
+
+    /**
+     * Check if current user can perform operational tasks (write access)
+     * Operations users can upload, calculate, modify data
+     * @returns {boolean}
+     */
+    canPerformOperations: () => {
+        const user = authService.getUserFromCache();
+        return user && user.role === 'operations';
+    },
+
+    /**
+     * Check if current user can manage users (admin only)
+     * @returns {boolean}
+     */
+    canManageUsers: () => {
+        const user = authService.getUserFromCache();
+        return user && user.role === 'admin';
+    },
+
+    /**
+     * Check if current user is read-only (admin or finance)
+     * These roles can view operational data but not modify it
+     * @returns {boolean}
+     */
+    isReadOnly: () => {
+        const user = authService.getUserFromCache();
+        return user && (user.role === 'admin' || user.role === 'finance');
     },
 
     // ==================== ADMIN USER MANAGEMENT ====================

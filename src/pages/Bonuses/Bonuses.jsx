@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { bonusService } from '../../services/bonusService';
 import { forecastService } from '../../services/forecastService';
+import { authService } from '../../services/authService';
 import CSVImportModal from '../../components/CSVImportModal/CSVImportModal';
 import './Bonuses.css';
 
@@ -218,9 +219,11 @@ const Bonuses = () => {
                     <h2>Bonus Calculations</h2>
                     <p>Calculate monthly bonuses based on sales performance and tier rules.</p>
                 </div>
-                <button className="btn-import-csv" onClick={() => setShowImportModal(true)}>
-                    📊 Import Receipts
-                </button>
+                {authService.canPerformOperations() && (
+                    <button className="btn-import-csv" onClick={() => setShowImportModal(true)}>
+                        📊 Import Receipts
+                    </button>
+                )}
             </div>
 
             {mode === 'input' && (
@@ -301,13 +304,15 @@ const Bonuses = () => {
                                     </div>
                                 )}
 
-                                <button
-                                    type="submit"
-                                    className="btn-calculate"
-                                    disabled={!forecast || calculating || loadingForecast || getForecastStatus() === 'not-met'}
-                                >
-                                    {calculating ? 'Calculating...' : 'Calculate Bonuses'}
-                                </button>
+                                {authService.canPerformOperations() && (
+                                    <button
+                                        type="submit"
+                                        className="btn-calculate"
+                                        disabled={!forecast || calculating || loadingForecast || getForecastStatus() === 'not-met'}
+                                    >
+                                        {calculating ? 'Calculating...' : 'Calculate Bonuses'}
+                                    </button>
+                                )}
                             </form>
                         </div>
 

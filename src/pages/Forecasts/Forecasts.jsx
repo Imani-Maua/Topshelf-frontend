@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { forecastService } from '../../services/forecastService';
+import { authService } from '../../services/authService';
 import './Forecasts.css';
 
 const MONTHS = [
@@ -219,20 +220,24 @@ const Forecasts = () => {
                                             </span>
                                         </div>
                                     </div>
-                                    <div className="month-actions">
-                                        <button className="btn-edit" title={`Edit ${monthName} Forecast`} onClick={() => openModal(monthNum, forecast)}>
-                                            Edit
-                                        </button>
-                                        <button className="btn-delete" title={`Delete ${monthName} Forecast`} onClick={() => handleDelete(forecast.id, monthNum, selectedYear)}>
-                                            Delete
-                                        </button>
-                                    </div>
+                                    {authService.canPerformOperations() && (
+                                        <div className="month-actions">
+                                            <button className="btn-edit" title={`Edit ${monthName} Forecast`} onClick={() => openModal(monthNum, forecast)}>
+                                                Edit
+                                            </button>
+                                            <button className="btn-delete" title={`Delete ${monthName} Forecast`} onClick={() => handleDelete(forecast.id, monthNum, selectedYear)}>
+                                                Delete
+                                            </button>
+                                        </div>
+                                    )}
                                 </>
                             ) : (
-                                <button className="btn-add-forecast" title={`Add ${monthName} Forecast`} onClick={() => openModal(monthNum)}>
-                                    <span>➕</span>
-                                    Add Forecast
-                                </button>
+                                authService.canPerformOperations() && (
+                                    <button className="btn-add-forecast" title={`Add ${monthName} Forecast`} onClick={() => openModal(monthNum)}>
+                                        <span>➕</span>
+                                        Add Forecast
+                                    </button>
+                                )
                             )}
                         </div>
                     );

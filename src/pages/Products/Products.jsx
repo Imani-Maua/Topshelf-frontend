@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { productService } from '../../services/productService';
 import { categoryService } from '../../services/categoryService';
+import { authService } from '../../services/authService';
 import './Products.css';
 
 const Products = () => {
@@ -225,21 +226,23 @@ const Products = () => {
                         ))}
                     </select>
                 </div>
-                <div className='import-controls'>
-                    <label className="btn-import" style={{ cursor: importing ? 'wait' : 'pointer', opacity: importing ? 0.6 : 1 }}>
-                        <span>📥</span> {importing ? 'Importing...' : 'Import CSV'}
-                        <input
-                            type="file"
-                            accept=".csv"
-                            onChange={handleCSVImport}
-                            style={{ display: 'none' }}
-                            disabled={importing}
-                        />
-                    </label>
-                    <button className="btn-add" onClick={() => openModal()}>
-                        <span>➕</span> Add Product
-                    </button>
-                </div>
+                {authService.canPerformOperations() && (
+                    <div className='import-controls'>
+                        <label className="btn-import" style={{ cursor: importing ? 'wait' : 'pointer', opacity: importing ? 0.6 : 1 }}>
+                            <span>📥</span> {importing ? 'Importing...' : 'Import CSV'}
+                            <input
+                                type="file"
+                                accept=".csv"
+                                onChange={handleCSVImport}
+                                style={{ display: 'none' }}
+                                disabled={importing}
+                            />
+                        </label>
+                        <button className="btn-add" onClick={() => openModal()}>
+                            <span>➕</span> Add Product
+                        </button>
+                    </div>
+                )}
             </div>
 
             {/* Products Table */}
@@ -269,14 +272,16 @@ const Products = () => {
                                         <span className="product-price">Ft {product.price.toFixed(2)}</span>
                                     </td>
                                     <td>
-                                        <div className="action-btns">
-                                            <button className="action-btn edit" onClick={() => openModal(product)}>
-                                                ✏️
-                                            </button>
-                                            <button className="action-btn delete" onClick={() => handleDelete(product.id, product.name)}>
-                                                🗑️
-                                            </button>
-                                        </div>
+                                        {authService.canPerformOperations() && (
+                                            <div className="action-btns">
+                                                <button className="action-btn edit" onClick={() => openModal(product)}>
+                                                    ✏️
+                                                </button>
+                                                <button className="action-btn delete" onClick={() => handleDelete(product.id, product.name)}>
+                                                    🗑️
+                                                </button>
+                                            </div>
+                                        )}
                                     </td>
                                 </tr>
                             ))}

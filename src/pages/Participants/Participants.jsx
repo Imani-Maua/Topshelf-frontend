@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { participantService } from '../../services/participantService';
+import { authService } from '../../services/authService';
 import ParticipantDetail from '../../components/ParticipantDetail/ParticipantDetail';
 import './Participants.css';
 
@@ -160,21 +161,23 @@ const Participants = () => {
                         onChange={handleSearch}
                     />
                 </div>
-                <div className='participants-add'>
-                    <label className="btn-import" style={{ cursor: importing ? 'wait' : 'pointer', opacity: importing ? 0.6 : 1 }}>
-                        <span>📥</span> {importing ? 'Importing...' : 'Import CSV'}
-                        <input
-                            type="file"
-                            accept=".csv"
-                            onChange={handleCSVImport}
-                            style={{ display: 'none' }}
-                            disabled={importing}
-                        />
-                    </label>
-                    <button className="btn-add" onClick={() => openModal()}>
-                        <span>➕</span> Add Participant
-                    </button>
-                </div>
+                {authService.canPerformOperations() && (
+                    <div className='participants-add'>
+                        <label className="btn-import" style={{ cursor: importing ? 'wait' : 'pointer', opacity: importing ? 0.6 : 1 }}>
+                            <span>📥</span> {importing ? 'Importing...' : 'Import CSV'}
+                            <input
+                                type="file"
+                                accept=".csv"
+                                onChange={handleCSVImport}
+                                style={{ display: 'none' }}
+                                disabled={importing}
+                            />
+                        </label>
+                        <button className="btn-add" onClick={() => openModal()}>
+                            <span>➕</span> Add Participant
+                        </button>
+                    </div>
+                )}
             </div>
 
             {/* Table Area */}
@@ -207,14 +210,16 @@ const Participants = () => {
                                         <span style={{ color: '#34A853', fontWeight: 600 }}>Active</span>
                                     </td>
                                     <td>
-                                        <div className="action-btns">
-                                            <button className="action-btn edit" title="Edit Participant" onClick={() => openModal(participant)}>
-                                                ✏️
-                                            </button>
-                                            <button className="action-btn delete" title="Delete Participant" onClick={() => handleDelete(participant.id)}>
-                                                🗑️
-                                            </button>
-                                        </div>
+                                        {authService.canPerformOperations() && (
+                                            <div className="action-btns">
+                                                <button className="action-btn edit" title="Edit Participant" onClick={() => openModal(participant)}>
+                                                    ✏️
+                                                </button>
+                                                <button className="action-btn delete" title="Delete Participant" onClick={() => handleDelete(participant.id)}>
+                                                    🗑️
+                                                </button>
+                                            </div>
+                                        )}
                                     </td>
                                 </tr>
                             ))}
