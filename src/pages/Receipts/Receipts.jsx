@@ -23,56 +23,59 @@ const Receipts = () => {
     const [receipts, setReceipts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [filters, setFilters] = useState({
-        month: '',
-        year: '',
-        participantId: '',
-        productId: '',
-        limit: 100,
-        offset: 0
-    });
+    const INITIAL_FILTERS = {
+    month: '',
+    year: '',
+    participantId: '',
+    productId: '',
+    limit: 100,
+    offset: 0}
+    const [filters, setFilters] = useState(INITIAL_FILTERS);
     const [totalReceipts, setTotalReceipts] = useState(0);
     const [participants, setParticipants] = useState([]);
     const [products, setProducts] = useState([]);
+    const [showFilters, setShowFilters] = useState(false);
+    const hasActiveFilters = filters.month !== '' || filters.year !== '' || filters.participantId !==  '' || filters.productId !== ''
 
     useEffect(() => {
         loadReceipts();
     }, [filters]);
 
     useEffect(() => {
-        loadParticipants();}, 
+        loadParticipants();
+    },
         []);
-    
-        useEffect(() => {
-            loadProducts();
-        }, []);
 
-        const loadProducts = async () => {
-            try{
-                setLoading(true);
-                const response = await productService.getProducts();
-                setProducts(response.data || []);
-            }
-            catch(err){
-                setError('Failed to load products. Please try again');
-            }
-            finally{
-                setLoading(false);
-            }
+    useEffect(() => {
+        loadProducts();
+    }, []);
+
+    const loadProducts = async () => {
+        try {
+            setLoading(true);
+            const response = await productService.getProducts();
+            setProducts(response.data || []);
         }
-    
-        const loadParticipants = async () => {
-            try{
-                setLoading(true);
-                const response = await participantService.getParticipants();
-                setParticipants(response.data || []);
-            }
-            catch(err){
-                setError('Failed to load participants. Please try again.');
-            } finally{
-                setLoading(false);
-            }
-        };
+        catch (err) {
+            setError('Failed to load products. Please try again');
+        }
+        finally {
+            setLoading(false);
+        }
+    }
+
+    const loadParticipants = async () => {
+        try {
+            setLoading(true);
+            const response = await participantService.getParticipants();
+            setParticipants(response.data || []);
+        }
+        catch (err) {
+            setError('Failed to load participants. Please try again.');
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const loadReceipts = async () => {
         try {
@@ -165,21 +168,33 @@ const Receipts = () => {
                     🔒 READ-ONLY
                 </div>
             </div>
+            <div className='filters-button'>
+                <button className='filter-toggle' onClick={() => {
+                    setShowFilters(!showFilters);
+                }}>
+                    Filters {showFilters?  '▼' : '▲'}
 
-            <div className="filters-section">
-                <div className="filter-group">
-                    <label htmlFor="month-select">Month</label>
-                    <select
-                        id="month-select"
-                        value={filters.month}
-                        onChange={(e) => handleFilterChange('month', e.target.value)}
-                    >
-                        <option value="">All Months</option>
-                        {MONTHS.map(month => (
-                            <option key={month.value} value={month.value}>{month.label}</option>
-                        ))}
-                    </select>
-                </div>
+                </button>
+            </div>
+
+
+                
+                {showFilters && (
+                <div className='filter-section'>
+                    <div className="filter-group">
+                        <label htmlFor="month-select">Month</label>
+                        <select
+                            id="month-select"
+                            value={filters.month}
+                            onChange={(e) => handleFilterChange('month', e.target.value)}
+                        >
+                            <option value="">All Months</option>
+                            {MONTHS.map(month => (
+                                <option key={month.value} value={month.value}>{month.label}</option>
+                            ))}
+                        </select>
+                    </div>
+                
 
                 <div className="filter-group">
                     <label>Year</label>
@@ -188,7 +203,7 @@ const Receipts = () => {
                         onChange={(e) => handleFilterChange('year', e.target.value)}
                     >
                         <option value="">All Years</option>
-                        {[2024, 2025, 2026, 2027, 2028].map(year => (
+                        {[2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034].map(year => (
                             <option key={year} value={year}>{year}</option>
                         ))}
                     </select>
@@ -202,9 +217,9 @@ const Receipts = () => {
                     >
                         <option value="">All Participants</option>
                         {participants.map(participant => (
-                            <option key={participant.id} value={`${participant.firstname} ${participant.lastname}`}>
+                            <option key={participant.id} value={participant.id}>
                                 {`${participant.firstname} ${participant.lastname}`}
-                                </option>
+                            </option>
                         ))}
                     </select>
                 </div>
@@ -217,29 +232,26 @@ const Receipts = () => {
                     >
                         <option value="">All Products</option>
                         {products.map(product => (
-                            <option key={product.id} value={`${product.name}`}>
+                            <option key={product.id} value={product.id}>
                                 {`${product.name}`}
-                                </option>
+                            </option>
                         ))}
                     </select>
                 </div>
+                </div>)}
 
-                <div className="filter-group">
-                    <button
-                        className="btn-clear"
-                        onClick={() => setFilters({
-                            month: new Date().getMonth() + 1,
-                            year: new Date().getFullYear(),
-                            participantId: '',
-                            productId: '',
-                            limit: 50,
-                            offset: 0
-                        })}
-                    >
-                        Clear All
-                    </button>
-                </div>
-            </div>
+                {hasActiveFilters && (
+                    <div>
+                        <button className='filters-button' onClick={() => {
+                                setFilters(INITIAL_FILTERS);
+                        }}>
+                                Clear All
+                        </button>
+                    </div>
+                )}
+
+
+            
 
             {error && (
                 <div className="error-message">
