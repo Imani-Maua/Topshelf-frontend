@@ -7,7 +7,7 @@ import Sidebar from '../../../components/Sidebar';
 // Mock the auth context
 vi.mock('../../../context/AuthContext', () => ({
     useAuth: () => ({
-        user: { firstname: 'Test', lastname: 'User', role: 'user' },
+        user: { firstname: 'Test', lastname: 'User', role: 'finance' },
         isLoading: false,
         logout: vi.fn()
     })
@@ -28,7 +28,7 @@ describe('Sidebar Component Tests', () => {
         expect(screen.getByText('Products')).toBeInTheDocument();
         expect(screen.getByText('Forecasts')).toBeInTheDocument();
         expect(screen.getByText('Bonuses')).toBeInTheDocument();
-        expect(screen.getByText('Settings')).toBeInTheDocument();
+        expect(screen.getByText('Receipts')).toBeInTheDocument();
     });
 
     it('should render navigation icons', () => {
@@ -45,7 +45,7 @@ describe('Sidebar Component Tests', () => {
         expect(screen.getByText('🛍️')).toBeInTheDocument(); // Products
         expect(screen.getByText('📊')).toBeInTheDocument(); // Forecasts
         expect(screen.getByText('🎁')).toBeInTheDocument(); // Bonuses
-        expect(screen.getByText('⚙️')).toBeInTheDocument(); // Settings
+        expect(screen.getByText('🧾')).toBeInTheDocument(); // Receipts
     });
 
     it('should have correct navigation links', () => {
@@ -86,7 +86,7 @@ describe('Sidebar Component Tests', () => {
         expect(screen.getByText('Test User')).toBeInTheDocument();
     });
 
-    it('should render all 7 main navigation items', () => {
+    it('should render correct number of navigation items for regular user', () => {
         const { container } = render(
             <MemoryRouter>
                 <Sidebar />
@@ -94,6 +94,6 @@ describe('Sidebar Component Tests', () => {
         );
 
         const navLinks = container.querySelectorAll('.nav-item');
-        expect(navLinks.length).toBe(7); // Dashboard, Participants, Categories, Products, Forecasts, Bonuses, Settings (Users is admin-only, not shown for regular users)
+        expect(navLinks.length).toBe(7); // Dashboard, Participants, Categories, Products, Forecasts, Bonuses, Receipts
     });
 });

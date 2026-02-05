@@ -12,6 +12,14 @@ vi.mock('../../context/AuthContext', () => ({
     useAuth: () => ({ user: { name: 'Test User' }, loading: false })
 }));
 
+// Mock authService
+vi.mock('../../services/authService', () => ({
+    authService: {
+        canPerformOperations: () => true,  // Mock as operations user for tests
+        getCurrentUser: () => ({ name: 'Test User', role: 'operations' })
+    }
+}));
+
 // Mock services
 vi.mock('../../services/bonusService');
 vi.mock('../../services/participantService');

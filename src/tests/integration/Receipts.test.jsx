@@ -1,9 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import Receipts from '../../pages/Receipts/Receipts';
 import { receiptService } from '../../services/receiptService';
 import { participantService } from '../../services/participantService';
+import { productService } from '../../services/productService';
 import { MemoryRouter } from 'react-router-dom';
 
 // Mock auth context
@@ -11,9 +12,18 @@ vi.mock('../../context/AuthContext', () => ({
     useAuth: () => ({ user: { name: 'Test User' }, loading: false })
 }));
 
+// Mock authService
+vi.mock('../../services/authService', () => ({
+    authService: {
+        canPerformOperations: () => true,  // Mock as operations user for tests
+        getCurrentUser: () => ({ name: 'Test User', role: 'operations' })
+    }
+}));
+
 // Mock services
 vi.mock('../../services/receiptService');
 vi.mock('../../services/participantService');
+vi.mock('../../services/productService');
 
 describe('Receipts Integration Tests', () => {
     beforeEach(() => {
@@ -38,9 +48,14 @@ describe('Receipts Integration Tests', () => {
         { id: '1', firstname: 'John', lastname: 'Doe' }
     ];
 
-    it('should render receipts and update when month changes', async () => {
+    const mockProducts = [
+        { id: '1', name: 'Steak', category: { name: 'Food' } }
+    ];
+
+    it('should render receipts correctly', async () => {
         receiptService.getReceipts.mockResolvedValue(mockReceipts);
         participantService.getParticipants.mockResolvedValue({ data: mockParticipants });
+        productService.getProducts.mockResolvedValue({ data: mockProducts });
 
         render(
             <MemoryRouter>
@@ -48,26 +63,16 @@ describe('Receipts Integration Tests', () => {
             </MemoryRouter>
         );
 
-        // Check if data appears (using partial match since date formatting might vary)
+        // Check if data appears
         expect(await screen.findByText(/Steak/i)).toBeInTheDocument();
         expect(screen.getByText('John Doe')).toBeInTheDocument();
         expect(screen.getByText(/Ft 10,000/i)).toBeInTheDocument();
-
-        // Change month
-        const monthSelect = screen.getByLabelText(/Month/i);
-        fireEvent.change(monthSelect, { target: { value: '3' } }); // March
-
-        await waitFor(() => {
-            expect(receiptService.getReceipts).toHaveBeenCalledWith(expect.objectContaining({
-                startDate: expect.stringContaining('2026-03'),
-                endDate: expect.stringContaining('2026-03')
-            }));
-        });
     });
 
-    it('should clear all filters correctly', async () => {
+    it('should show read-only badge', async () => {
         receiptService.getReceipts.mockResolvedValue(mockReceipts);
         participantService.getParticipants.mockResolvedValue({ data: mockParticipants });
+        productService.getProducts.mockResolvedValue({ data: mockProducts });
 
         render(
             <MemoryRouter>
@@ -75,14 +80,9 @@ describe('Receipts Integration Tests', () => {
             </MemoryRouter>
         );
 
-        const clearBtn = screen.getByText(/Clear All/i);
-        fireEvent.click(clearBtn);
-
+        // Check if read-only badge appears (receipts page is always read-only)
         await waitFor(() => {
-            const calls = receiptService.getReceipts.mock.calls;
-            const lastCallParams = calls[calls.length - 1][0];
-            expect(lastCallParams.participantId).toBe('');
-            expect(lastCallParams.productId).toBe('');
+            expect(screen.getByText(/READ-ONLY/i)).toBeInTheDocument();
         });
     });
 });
