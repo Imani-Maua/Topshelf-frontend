@@ -1,4 +1,4 @@
-# TopShelf
+# TopShelf v 1.0
 
 Hey there! 👋 Welcome to TopShelf, an app that automatically calculates your team's bonuses based on their sales data.
 
@@ -192,15 +192,6 @@ Check the troubleshooting section in the full README, or:
 ## 📝 The Legal Stuff
 
 ISC License - basically, use it, modify it, just don't blame us if something breaks. 😉
-
----
-
-## 🙌 Big Thanks To
-
-- The React team for making frontend development actually fun
-- Vite for making builds blazingly fast
-- The open source community for all the amazing tools
-- Coffee, for obvious reasons ☕
 
 ---
 
