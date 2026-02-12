@@ -5,8 +5,8 @@ const ParticipantDetail = ({ participant, onClose }) => {
     if (!participant) return null;
 
     // Calculate total sales revenue
-    const totalRevenue = participant.receipts?.reduce((sum, r) => sum + r.price, 0) || 0;
-    const totalBonuses = participant.bonusPayouts?.reduce((sum, b) => sum + b.amount, 0) || 0;
+    const totalRevenue = participant.receipts?.reduce((sum, receipt) => sum + receipt.price, 0) || 0;
+    const totalBonuses = participant.bonusPayouts?.reduce((sum, bonus) => sum + bonus.amount, 0) || 0;
 
     // Group receipts by product
     const productSales = {};
